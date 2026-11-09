@@ -6,45 +6,39 @@ $font-weights: (
 
 $typography: (
     1: (
-        font-size: 3rem,
-        font-weight: map-get($font-weights, bold),
-        line-height: 4.4375rem,
-        letter-spacing: -0.0625rem
+        font-size: 48px,
+        font-weight: 700,
+        line-height: 71px
     ),
 
     2: (
-        font-size: 2rem,
-        font-weight: map-get($font-weights, bold),
-        line-height: 2.9375rem,
-        letter-spacing: -0.041875rem
+        font-size: 32px,
+        font-weight: 700,
+        line-height: 47px
     ),
 
     3: (
-        font-size: 1.5rem,
-        font-weight: map-get($font-weights, bold),
-        line-height: 2.25rem,
-        letter-spacing: 0
+        font-size: 24px,
+        font-weight: 700,
+        line-height: 36px
     ),
 
     4: (
-        font-size: 1.25rem,
-        font-weight: map-get($font-weights, bold),
-        line-height: 1.875rem,
-        letter-spacing: 0
+        font-size: 20px,
+        font-weight: 700,
+        line-height: 30px
     ),
 
     5: (
-        font-size: 1rem,
-        font-weight: map-get($font-weights, bold),
-        line-height: 1.5rem,
-        letter-spacing: 0
+        font-size: 16px,
+        font-weight: 700,
+        line-height: 24px
     ),
 
     6: (
-        font-size: 0.8125rem,
-        font-weight: map-get($font-weights, bold),
-        line-height: 1.1875rem,
-        letter-spacing: 0
+        font-size: 13px,
+        font-weight: 700,
+        line-height: 19px
     )
 );
 

@@ -9,12 +9,10 @@
 @use "base/reset" as *;
 @use "base/global" as *;
 
-// Layouts 
-@use "layout/dashboard" as *; 
-
 // Components
-@use "components/activity-card" as *;
-@use "components/profile" as *;
+@use "components/tip-button" as *;
+@use "components/tip-card" as *;
+@use "components/tip-form" as *;
 
 
 main {

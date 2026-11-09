@@ -1,0 +1,27 @@
+@use "./../abstracts/colors" as *; 
+@use "./../abstracts/typography" as *; 
+@use "./../abstracts/spacing" as *; 
+
+.tip-button {
+
+    @include text-preset(3);
+
+    padding: var(--spacing-100) var(--spacing-200);
+    border-radius: 5px;
+    background: var(--color-green-900);
+    color: var(--color-white);
+
+    &:hover{
+        background: var(--color-green-400);    
+        color: var(--color-green-900);
+    }
+
+    &:active{
+        background: var(--color-green-200);
+        color: var(--color-green-900);
+    }
+
+    &::selection{
+        background: #000;
+    }
+}
