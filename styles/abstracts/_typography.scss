@@ -1,0 +1,63 @@
+$font-family-primary: "Space Mono", monospace;
+
+$font-weights: (
+    bold: 700
+);
+
+$typography: (
+    1: (
+        font-size: 3rem,
+        font-weight: map-get($font-weights, bold),
+        line-height: 4.4375rem,
+        letter-spacing: -0.0625rem
+    ),
+
+    2: (
+        font-size: 2rem,
+        font-weight: map-get($font-weights, bold),
+        line-height: 2.9375rem,
+        letter-spacing: -0.041875rem
+    ),
+
+    3: (
+        font-size: 1.5rem,
+        font-weight: map-get($font-weights, bold),
+        line-height: 2.25rem,
+        letter-spacing: 0
+    ),
+
+    4: (
+        font-size: 1.25rem,
+        font-weight: map-get($font-weights, bold),
+        line-height: 1.875rem,
+        letter-spacing: 0
+    ),
+
+    5: (
+        font-size: 1rem,
+        font-weight: map-get($font-weights, bold),
+        line-height: 1.5rem,
+        letter-spacing: 0
+    ),
+
+    6: (
+        font-size: 0.8125rem,
+        font-weight: map-get($font-weights, bold),
+        line-height: 1.1875rem,
+        letter-spacing: 0
+    )
+);
+
+@mixin text-preset($preset) {
+    $styles: map-get($typography, $preset);
+
+    @if $styles == null {
+        @error "Unknown typography preset: #{$preset}";
+    }
+
+    font-family: $font-family-primary;
+
+    @each $property, $value in $styles {
+        #{$property}: $value;
+    }
+}

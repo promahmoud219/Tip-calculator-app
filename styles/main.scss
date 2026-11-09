@@ -1,0 +1,31 @@
+// Abstracts
+@use "abstracts/colors" as *;
+@use "abstracts/spacing" as *;
+@use "abstracts/typography" as *;
+@use "abstracts/breakpoints" as *;
+@use "abstracts/dimensions" as *;
+
+// Base
+@use "base/reset" as *;
+@use "base/global" as *;
+
+// Layouts 
+@use "layout/dashboard" as *; 
+
+// Components
+@use "components/activity-card" as *;
+@use "components/profile" as *;
+
+
+main {
+    min-height: 100vh;
+    
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: var(--spacing-300);
+}
+
