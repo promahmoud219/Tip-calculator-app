@@ -1,0 +1,337 @@
+==========================================
+FILE: ./index.html
+==========================================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+
+  <link rel="stylesheet" href="./styles/main.css">
+  <!-- space mono font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+  <title>Frontend Mentor | Tip calculator app</title>
+
+
+</head>
+<body>
+
+  <main>
+
+    <img 
+      src="./images/logo.svg" 
+      alt="Splitter" 
+      class="site-logo"
+    >
+
+    <form class="tip-calculator">
+      
+      <section 
+        class="bill-section" 
+        aria-label="bill-Details"
+      >
+        
+        <div class="form-control">
+      
+          <label for="bill-input">Bill</label>
+      
+          <div class="input-container">
+
+            <img 
+              src="./images/icon-dollar.svg" 
+              alt="" 
+              aria-hidden="true"
+            >
+            
+            <input 
+              type="number" 
+              id="bill-input" 
+              placeholder="0" 
+              name="bill"
+              min="0"
+              step="any"
+            >
+
+          </div>
+      
+        </div>
+        
+        <fieldset class="tip-section">
+          
+          <legend class="tip-selection__label">Select Tip %</legend>
+
+          <div class="tip-options">
+            <label class="tip-option">
+              <input 
+                type="radio" 
+                name="tip" 
+                value="5"
+              >
+              <span>5%</span>
+            </label>
+
+            <label class="tip-option">
+              <input 
+                type="radio" 
+                name="tip" 
+                value="10"
+              >
+              <span>10%</span>
+            </label>
+            
+            <label class="tip-option">
+              <input 
+                type="radio" 
+                name="tip" 
+                value="15"
+              >
+              <span>15%</span>
+            </label>
+            
+            <label class="tip-option">
+              <input 
+                type="radio" 
+                name="tip" 
+                value="25"
+              >
+              <span>25%</span>
+            </label>
+            
+            <label class="tip-option">
+              <input 
+                type="radio" 
+                name="tip" 
+                value="50"
+              >
+              <span>50%</span>
+            </label>
+
+            <input 
+              type="number"
+              name="tip"
+              placeholder="Custom"
+              aria-label="Custom tip percentage"
+              min="0"
+              max="100"
+              step="any"
+              inputmode="decimal"
+            >
+
+          </div>
+        </fieldset>
+        
+        <div class="form-control">
+          
+          <label for="people">Number of People</label>
+          
+          <div class="input-container">
+
+            <img 
+              src="./images/icon-person.svg" 
+              alt="" 
+              aria-hidden="true"
+            >
+            
+            <input 
+              type="number" 
+              id="people"
+              name="people" 
+              min="1" 
+              max="100" 
+              step="1" 
+              placeholder="0"
+            >
+
+          </div>
+          
+        </div>
+
+      </section>
+      
+      <section 
+        class="results-section"
+        aria-label="Calculation results"  
+      >
+
+        <div class="results-container">
+          
+          <div class="result">
+            
+            <div class="result-label">
+              <span id="tip-amount-label">Tip Amount</span>
+              <span id="tip-amount-unit">/person</span>
+            </div>
+
+            <output
+              id="tip-amount"
+              aria-labelledby="tip-amount-label tip-amount-unit"
+            >
+              $0.00
+            </output>
+
+          </div>
+
+          <div class="result">
+            
+            <div class="result-label">
+              
+              <span id="total-label">Total</span>
+              <span id="total-unit">/person</span>
+
+            </div>
+
+            <output
+              id="total-amount"
+              aria-labelledby="total-label total-unit"
+            >
+              $0.00
+            </output>
+
+          </div>
+          
+        </div>
+        
+        <button 
+          class="reset-button" 
+          type="reset"
+          disabled
+        >
+          RESET
+        </button>
+
+      </section>
+
+    </form>
+
+  </main>
+  
+</body>
+</html>
+
+==========================================
+FILE: ./main.js
+==========================================
+
+
+==========================================
+FILE: ./styles/main.css
+==========================================
+:root {
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+  --color-grey-600: #3D6666;
+  --color-grey-550: #547878;
+  --color-grey-500: #5E7A7D;
+  --color-grey-400: #7F9D9F;
+  --color-grey-300: #9EBBBD;
+  --color-grey-200: #C5E4E7;
+  --color-grey-50: #F3F9FA;
+  --color-green-900: #00474B;
+  --color-green-800: #085C61;
+  --color-green-750: #0D686D;
+  --color-green-400: #26C2AE;
+  --color-green-200: #9FE8DF;
+  --color-orange-400: #E17052;
+}
+
+:root {
+  --spacing-0: 0;
+  --spacing-100: 8px;
+  --spacing-200: 16px;
+  --spacing-300: 24px;
+  --spacing-400: 32px;
+  --spacing-600: 48px;
+  --spacing-1000: 80px;
+  --spacing-1200: 96px;
+  --spacing-1500: 120px;
+  --spacing-1600: 128px;
+}
+
+/* Box Sizing */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Form Elements */
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* Images */
+img,
+picture {
+  display: block;
+  max-width: 100%;
+}
+
+/* Lists */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Links */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Buttons */
+button {
+  border: none;
+  background: none;
+}
+
+html {
+  font-family: "", sans-serif;
+}
+
+body {
+  background: var(--color-navy-950);
+  min-height: 100vh;
+}
+
+.tip-button {
+  font-family: "Space Mono", monospace;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 36px;
+  padding: var(--spacing-100) var(--spacing-200);
+  border-radius: 5px;
+  background: var(--color-green-900);
+  color: var(--color-white);
+}
+.tip-button:hover {
+  background: var(--color-green-400);
+  color: var(--color-green-900);
+}
+.tip-button--selected {
+  background: var(--color-green-200);
+  color: var(--color-green-900);
+}
+
+.tip-card {
+  background: var(--color-green-900);
+  padding: var(--spacing-300) var(--spacing-400);
+  border-radius: var(--spacing-200);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1600);
+}/*# sourceMappingURL=main.css.map */
+
