@@ -16,12 +16,8 @@
         color: var(--color-green-900);
     }
 
-    &:active{
+    &--selected{
         background: var(--color-green-200);
         color: var(--color-green-900);
-    }
-
-    &::selection{
-        background: #000;
-    }
+    } 
 }

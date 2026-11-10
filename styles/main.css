@@ -98,22 +98,16 @@ body {
   background: var(--color-green-400);
   color: var(--color-green-900);
 }
-.tip-button:active {
+.tip-button--selected {
   background: var(--color-green-200);
   color: var(--color-green-900);
 }
-.tip-button::-moz-selection {
-  background: #000;
-}
-.tip-button::selection {
-  background: #000;
-}
 
-main {
-  min-height: 100vh;
-  width: 100%;
+.tip-card {
+  background: var(--color-green-900);
+  padding: var(--spacing-300) var(--spacing-400);
+  border-radius: var(--spacing-200);
   display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: var(--spacing-300);
+  flex-direction: column;
+  gap: var(--spacing-1600);
 }/*# sourceMappingURL=main.css.map */
