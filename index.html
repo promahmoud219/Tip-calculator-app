@@ -20,97 +20,191 @@
 
   <main>
 
-    <header>
-      <img src="./images/logo.svg" alt="Splitter" class="site-logo">
-    </header>
+    <img 
+      src="./images/logo.svg" 
+      alt="Splitter" 
+      class="site-logo"
+    >
 
-    <div class="tip-calculator">
+    <form class="tip-calculator">
       
-      <section class="bill-section">
+      <section 
+        class="bill-section" 
+        aria-label="bill-Details"
+      >
         
-        <div class="bill-input">
+        <div class="form-control">
       
           <label for="bill-input">Bill</label>
       
           <div class="input-container">
-            <img src="./images/icon-dollar.svg" alt="">
-            <input type="number" id="bill-input" placeholder="0" >
+
+            <img 
+              src="./images/icon-dollar.svg" 
+              alt="" 
+              aria-hidden="true"
+            >
+            
+            <input 
+              type="number" 
+              id="bill-input" 
+              placeholder="0" 
+              name="bill"
+              min="0"
+              step="any"
+            >
+
           </div>
       
         </div>
         
-        <div class="tip-selection">
+        <fieldset class="tip-section">
           
-          <span class="tip-selection__label">Select Tip %</span>
-          
-            <div class="tip-selection__options">
+          <legend class="tip-selection__label">Select Tip %</legend>
+
+          <div class="tip-options">
+            <label class="tip-option">
+              <input 
+                type="radio" 
+                name="tip" 
+                value="5"
+              >
+              <span>5%</span>
+            </label>
+
+            <label class="tip-option">
+              <input 
+                type="radio" 
+                name="tip" 
+                value="10"
+              >
+              <span>10%</span>
+            </label>
             
-              <div class="tip-button">5%</div>
-              <div class="tip-button">10%</div>
-              <div class="tip-button">15%</div>
-              <div class="tip-button">25%</div>
-              <div class="tip-button">50%</div>
-              
-              <div class="custom-tip-input">
-                <input type="number" placeholder="Custom">
-              </div>
+            <label class="tip-option">
+              <input 
+                type="radio" 
+                name="tip" 
+                value="15"
+              >
+              <span>15%</span>
+            </label>
+            
+            <label class="tip-option">
+              <input 
+                type="radio" 
+                name="tip" 
+                value="25"
+              >
+              <span>25%</span>
+            </label>
+            
+            <label class="tip-option">
+              <input 
+                type="radio" 
+                name="tip" 
+                value="50"
+              >
+              <span>50%</span>
+            </label>
 
-            </div>
+            <input 
+              type="number"
+              name="tip"
+              placeholder="Custom"
+              aria-label="Custom tip percentage"
+              min="0"
+              max="100"
+              step="any"
+              inputmode="decimal"
+            >
 
-        </div>
+          </div>
+        </fieldset>
         
-        <div class="number-of-people-input">
+        <div class="form-control">
           
-          <label for="">Number of People</label>
+          <label for="people">Number of People</label>
           
           <div class="input-container">
-            <img src="./images/icon-person.svg" alt="">
-            <input type="number" placeholder="0">
+
+            <img 
+              src="./images/icon-person.svg" 
+              alt="" 
+              aria-hidden="true"
+            >
+            
+            <input 
+              type="number" 
+              id="people"
+              name="people" 
+              min="1" 
+              max="100" 
+              step="1" 
+              placeholder="0"
+            >
+
           </div>
           
         </div>
 
       </section>
       
-      <section class="results-card">
+      <section 
+        class="results-section"
+        aria-label="Calculation results"  
+      >
 
-        <div class="results-card__summary">
+        <div class="results-container">
           
-          <div class="result-item">
+          <div class="result">
             
-            <div class="result-item__name" aria-labelledby="tip-amount-label tip-amount-unit">
-              <span id="tip-amount-label">Tip Amount</span>
-              <span id="tip-amount-unit">/person</span>
-            </div>
-            
-            <div class="result">
-              <img src="./images/icon-dollar.svg" alt="">
-              <span>0.00</span>
-            </div>
-            
-          </div>
-          
-          <div class="result-item">
-            
-            <div class="result-item__name" >
+            <div class="result-label">
               <span id="tip-amount-label">Tip Amount</span>
               <span id="tip-amount-unit">/person</span>
             </div>
 
-            <div class="result">
-              <img src="./images/icon-dollar.svg" alt="">
-              <span>0.00</span>
-            </div>
+            <output
+              id="tip-amount"
+              aria-labelledby="tip-amount-label tip-amount-unit"
+            >
+              $0.00
+            </output>
 
           </div>
 
+          <div class="result">
+            
+            <div class="result-label">
+              
+              <span id="total-label">Total</span>
+              <span id="total-unit">/person</span>
+
+            </div>
+
+            <output
+              id="total-amount"
+              aria-labelledby="total-label total-unit"
+            >
+              $0.00
+            </output>
+
+          </div>
+          
         </div>
         
-        <button class="reset-button" type="reset">RESET</button>
+        <button 
+          class="reset-button" 
+          type="reset"
+          disabled
+        >
+          RESET
+        </button>
 
       </section>
 
-    </div>
+    </form>
+
   </main>
   
 </body>
