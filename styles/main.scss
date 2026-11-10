@@ -10,9 +10,37 @@
 @use "base/global" as *;
 
 // Components
-@use "components/tip-button" as *;
-@use "components/tip-card" as *;
-@use "components/tip-form" as *;
+@use "components/tip-option" as *;
+@use "components/bill-section" as *;
+@use "components/results-section" as *;
 
 
 
+main {
+    min-height: 100vh;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.site-logo{
+
+    width: 86.66px;
+    height: 53.14px;
+}
+
+
+.tip-calculator{
+    display: flex;
+    flex-direction: column;
+    
+    padding: var(--spacing-400) var(--spacing-300);
+    background: var(--color-white);
+
+
+
+}

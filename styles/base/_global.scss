@@ -1,8 +1,12 @@
+@use "./../abstracts/colors" as *;
+
+
 html {
     font-family: "", sans-serif;
 }
 
 body{
-    background: var(--color-navy-950);
+    background: var(--color-grey-200);
     min-height: 100vh;
+
 }

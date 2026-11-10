@@ -2,7 +2,7 @@
 @use "./../abstracts/typography" as *; 
 @use "./../abstracts/spacing" as *; 
 
-.tip-button {
+.tip-option {
 
     @include text-preset(3);
 

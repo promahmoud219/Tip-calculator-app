@@ -80,11 +80,11 @@ html {
 }
 
 body {
-  background: var(--color-navy-950);
+  background: var(--color-grey-200);
   min-height: 100vh;
 }
 
-.tip-button {
+.tip-option {
   font-family: "Space Mono", monospace;
   font-size: 24px;
   font-weight: 700;
@@ -94,20 +94,74 @@ body {
   background: var(--color-green-900);
   color: var(--color-white);
 }
-.tip-button:hover {
+.tip-option:hover {
   background: var(--color-green-400);
   color: var(--color-green-900);
 }
-.tip-button--selected {
+.tip-option--selected {
   background: var(--color-green-200);
   color: var(--color-green-900);
 }
 
-.tip-card {
+.bill-section {
+  background: rgba(189, 8, 206, 0.1764705882);
+}
+
+.results-section {
   background: var(--color-green-900);
   padding: var(--spacing-300) var(--spacing-400);
   border-radius: var(--spacing-200);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-1600);
+}
+.results-section .results-container {
+  background: rgba(185, 187, 211, 0.185);
+  gap: var(--spacing-300);
+}
+.results-section .results-container .result {
+  display: flex;
+  gap: var(--spacing-1200);
+}
+.results-section .results-container .result span:first-child {
+  font-family: "Space Mono", monospace;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  color: var(--color-white);
+}
+.results-section .results-container .result span:nth-child(2) {
+  font-family: "Space Mono", monospace;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 19px;
+  color: var(--color-grey-400);
+}
+.results-section .results-container #tip-amount {
+  font-family: "Space Mono", monospace;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 71px;
+  color: var(--color-green-400);
+}
+
+main {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.site-logo {
+  width: 86.66px;
+  height: 53.14px;
+}
+
+.tip-calculator {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-400) var(--spacing-300);
+  background: var(--color-white);
 }/*# sourceMappingURL=main.css.map */

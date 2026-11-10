@@ -1,3 +1,5 @@
+@use "sass:map";
+
 $font-family-primary: "Space Mono", monospace;
 
 $font-weights: (
@@ -43,7 +45,7 @@ $typography: (
 );
 
 @mixin text-preset($preset) {
-    $styles: map-get($typography, $preset);
+    $styles: map.get($typography, $preset);
 
     @if $styles == null {
         @error "Unknown typography preset: #{$preset}";
