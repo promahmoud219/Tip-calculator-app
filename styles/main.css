@@ -22,6 +22,7 @@
   --spacing-200: 16px;
   --spacing-300: 24px;
   --spacing-400: 32px;
+  --spacing-500: 40px;
   --spacing-600: 48px;
   --spacing-1000: 80px;
   --spacing-1200: 96px;
@@ -101,6 +102,22 @@ body {
 .tip-option--selected {
   background: var(--color-green-200);
   color: var(--color-green-900);
+}
+
+.bill-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-400);
+}
+@media (min-width: 48rem) {
+  .bill-section {
+    gap: var(--spacing-300);
+  }
+}
+@media (min-width: 90rem) {
+  .bill-section {
+    gap: var(--spacing-500);
+  }
 }
 
 .results-section {

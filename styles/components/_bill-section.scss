@@ -1,2 +1,22 @@
+@use "./../abstracts/colors" as *;
+@use "./../abstracts/typography" as *;
+@use "./../abstracts/spacing" as *;
+@use "./../abstracts/breakpoints" as *;
+
+
+
 .bill-section{ 
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-400);
+
+    @media (min-width: $breakpoint-tablet) {
+        gap: var(--spacing-300);
+    }
+    
+    @media (min-width: $breakpoint-desktop) {
+        gap: var(--spacing-500);
+    }
+    
 }
