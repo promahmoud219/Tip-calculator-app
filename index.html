@@ -35,14 +35,15 @@
         
         <div class="form-control">
       
-          <label for="bill-input">Bill</label>
+          <label class="form-control__label" for="bill-input">Bill</label>
       
-          <div class="input-container">
+          <div class="form-control__input-wrapper">
 
             <img 
               src="./images/icon-dollar.svg" 
               alt="" 
               aria-hidden="true"
+              class="form-control__icon"  
             >
             
             <input 
@@ -52,6 +53,7 @@
               name="bill"
               min="0"
               step="any"
+              class="form-control__input"  
             >
 
           </div>
@@ -124,14 +126,15 @@
         
         <div class="form-control">
           
-          <label for="people">Number of People</label>
+          <label class="form-control__label" for="people">Number of People</label>
           
-          <div class="input-container">
+          <div class="form-control__input-wrapper form-control__input-wrapper--error">
 
             <img 
               src="./images/icon-person.svg" 
               alt="" 
               aria-hidden="true"
+              class="form-control__icon"
             >
             
             <input 
@@ -141,7 +144,8 @@
               min="1" 
               max="100" 
               step="1" 
-              placeholder="0"
+              placeholder="333"
+              class="form-control__input"
             >
 
           </div>

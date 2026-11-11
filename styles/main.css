@@ -198,6 +198,55 @@ body {
   }
 }
 
+.form-control {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-100);
+}
+.form-control__label {
+  font-family: "Space Mono", monospace;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  color: var(--color-grey-500);
+}
+.form-control__input-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: var(--color-grey-50);
+  border-radius: 5px;
+  position: relative;
+}
+.form-control__icon {
+  width: 13px;
+  height: 20px;
+  position: absolute;
+  left: var(--spacing-200);
+}
+.form-control__input {
+  font-family: "Space Mono", monospace;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 36px;
+  padding: var(--spacing-100) var(--spacing-200);
+  width: 100%;
+  min-width: 0;
+  color: var(--color-green-900);
+  text-align: right;
+  background: transparent;
+  border: 2px solid transparent;
+}
+.form-control__input:hover {
+  cursor: text;
+}
+.form-control__input:focus {
+  border: 2px solid var(--color-green-400);
+}
+.form-control__input--error {
+  border: 2px solid var(--color-orange-400);
+}
+
 main {
   min-height: 100vh;
   max-width: 100%;

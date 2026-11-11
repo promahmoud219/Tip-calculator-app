@@ -1,0 +1,64 @@
+@use "./../abstracts/colors" as *;
+@use "./../abstracts/typography" as *;
+@use "./../abstracts/spacing" as *;
+@use "./../abstracts/breakpoints" as *;
+
+
+.form-control{
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-100);
+
+    
+    &__label{
+        @include text-preset(5);
+        color: var(--color-grey-500);
+    }
+    
+    &__input-wrapper{
+        
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background: var(--color-grey-50);
+        border-radius: 5px;
+        
+        
+        position: relative;
+
+    }
+    
+    &__icon{
+        width: 13px;
+        height: 20px;
+
+        position: absolute;
+        left: var(--spacing-200);
+    }
+    
+    &__input{
+        @include text-preset(3);
+         
+        padding: var(--spacing-100) var(--spacing-200);
+
+        width: 100%; 
+        min-width: 0;
+        color: var(--color-green-900);
+        text-align: right;
+        background: transparent;
+        border: 2px solid transparent;
+
+        &:hover{
+            cursor: text;
+        }
+        
+        &:focus{
+            border: 2px solid var(--color-green-400);
+        }
+    
+        &--error{
+            border: 2px solid var(--color-orange-400);
+        }
+    }
+}
