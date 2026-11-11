@@ -169,6 +169,7 @@ FILE: ./index.html
 
             <output
               id="tip-amount"
+              class="result-value"
               aria-labelledby="tip-amount-label tip-amount-unit"
             >
               $0.00
@@ -187,6 +188,7 @@ FILE: ./index.html
 
             <output
               id="total-amount"
+              class="result-value"
               aria-labelledby="total-label total-unit"
             >
               $0.00
@@ -299,39 +301,15 @@ button {
 }
 
 html {
-  font-family: "", sans-serif;
+  font-family: "Space Mono", sans-serif, monospace;
 }
 
 body {
-  background: var(--color-navy-950);
+  background: var(--color-grey-200);
   min-height: 100vh;
 }
 
-.tip-button {
-  font-family: "Space Mono", monospace;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 36px;
-  padding: var(--spacing-100) var(--spacing-200);
-  border-radius: 5px;
-  background: var(--color-green-900);
-  color: var(--color-white);
-}
-.tip-button:hover {
-  background: var(--color-green-400);
-  color: var(--color-green-900);
-}
-.tip-button--selected {
-  background: var(--color-green-200);
-  color: var(--color-green-900);
-}
-
-.tip-card {
-  background: var(--color-green-900);
-  padding: var(--spacing-300) var(--spacing-400);
-  border-radius: var(--spacing-200);
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-1600);
+.bill-section {
+  background: rgba(189, 8, 206, 0.1764705882);
 }/*# sourceMappingURL=main.css.map */
 
