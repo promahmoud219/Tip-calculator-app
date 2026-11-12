@@ -1,4 +1,5 @@
 @use "./../abstracts/spacing" as *;
+@use "./../abstracts/breakpoints" as *;
 @use "./../abstracts/colors" as *;
 @use "./../abstracts/typography" as *;
 @use "./../abstracts/mixins" as *;
@@ -17,6 +18,9 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: var(--spacing-200);
 
+        @media (min-width: $breakpoint-tablet) {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
 
         .custom-input{
 

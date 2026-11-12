@@ -97,6 +97,11 @@ body {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--spacing-200);
 }
+@media (min-width: 48rem) {
+  .tip-section .tip-options {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
 .tip-section .tip-options .custom-input {
   border: none;
   color: var(--color-grey-550);
@@ -339,6 +344,15 @@ body {
   flex-direction: column;
   padding: var(--spacing-400) var(--spacing-300);
   background: var(--color-white);
+}
+@media (min-width: 90rem) {
+  .tip-calculator {
+    display: flex;
+    flex-direction: row;
+  }
+  .tip-calculator > * {
+    flex: 1;
+  }
 }
 
 main {

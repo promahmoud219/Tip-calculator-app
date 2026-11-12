@@ -1,5 +1,6 @@
 @use "./../abstracts/spacing" as *;
 @use "./../abstracts/colors" as *;
+@use "./../abstracts/breakpoints" as *;
 
 .tip-calculator{
     width: 100%;
@@ -10,5 +11,16 @@
     
     padding: var(--spacing-400) var(--spacing-300);
     background: var(--color-white);
+
+    @media (min-width: $breakpoint-desktop) {
+        display: flex;
+        flex-direction: row;        
+
+        > *{
+            flex: 1;
+        }
+
+
+    }
 
 }
