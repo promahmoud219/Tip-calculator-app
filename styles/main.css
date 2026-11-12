@@ -376,6 +376,10 @@ main {
 @media (min-width: 48rem) {
   main {
     padding: 80px;
+  }
+}
+@media (min-width: 48rem) {
+  main {
     gap: 88px;
   }
 }
