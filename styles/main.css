@@ -252,9 +252,15 @@ body {
   padding: var(--spacing-100) var(--spacing-400);
   border-radius: 5px;
 }
-.results-section .reset-button:active {
+.results-section .reset-button--enabled:active {
   background: var(--color-green-200);
   color: var(--color-green-900);
+}
+.results-section .reset-button--enabled:hover {
+  cursor: pointer;
+}
+.results-section .reset-button--disabled:hover {
+  cursor: not-allowed;
 }
 @media (min-width: 48rem) {
   .results-section {
@@ -290,7 +296,7 @@ body {
   justify-content: space-between;
   align-items: center;
 }
-.form-control__label-container .input-error {
+.form-control .people-input-error {
   font-family: "Space Mono", monospace;
   font-size: 16px;
   font-weight: 700;
@@ -309,11 +315,16 @@ body {
   flex-direction: row;
   align-items: center;
   background: var(--color-grey-50);
-  border-radius: 5px;
   position: relative;
+  border-radius: 5px;
+  outline: 2px solid transparent;
+  border: none;
 }
-.form-control__input-wrapper--error {
-  border: 2px solid var(--color-orange-400);
+.form-control__input-wrapper:focus-within {
+  outline-color: var(--color-green-400);
+}
+.form-control__input-wrapper.form-control__input-wrapper--error {
+  outline-color: var(--color-orange-400);
 }
 .form-control__icon {
   width: 13px;
@@ -343,13 +354,13 @@ body {
   color: var(--color-green-900);
   text-align: right;
   background: transparent;
-  border: 2px solid transparent;
+  border: none;
+}
+.form-control__input:focus-visible {
+  outline: none;
 }
 .form-control__input:hover {
   cursor: text;
-}
-.form-control__input:focus {
-  border: 2px solid var(--color-green-400);
 }
 
 .tip-calculator {

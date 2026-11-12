@@ -1,4 +1,4 @@
-@use "./../abstracts/typography" as *;
+ @use "./../abstracts/typography" as *;
 @use "./../abstracts/mixins" as *;
 
 
@@ -15,10 +15,11 @@
         justify-content: space-between;
         align-items: center;
         
-        .input-error{
-            @include text-preset(5);
-            color: var(--color-orange-400);
-        }
+    }
+
+    .people-input-error{
+        @include text-preset(5);
+        color: var(--color-orange-400);
     }
 
     &__label{
@@ -32,14 +33,19 @@
         flex-direction: row;
         align-items: center;
         background: var(--color-grey-50);
-        border-radius: 5px;
-        
         position: relative;
-
-        &--error{
-            border: 2px solid var(--color-orange-400);
+        border-radius: 5px;
+        outline: 2px solid transparent;
+        border: none;
+        
+        
+        &:focus-within {
+            outline-color: var(--color-green-400);
         }
-
+        
+        &.form-control__input-wrapper--error{
+            outline-color: var(--color-orange-400);
+        }
 
     }
     
@@ -63,15 +69,17 @@
         color: var(--color-green-900);
         text-align: right;
         background: transparent;
-        border: 2px solid transparent;
+        
+        border: none;
+        
+        &:focus-visible{
+            outline: none;
+        }
 
         &:hover{
             cursor: text;
         }
         
-        &:focus{
-            border: 2px solid var(--color-green-400);
-        }
- 
     }
 }
+
