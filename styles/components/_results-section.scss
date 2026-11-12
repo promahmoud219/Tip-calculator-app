@@ -58,11 +58,19 @@
         padding: var(--spacing-100) var(--spacing-400);
         border-radius: 5px;
         
-        &:active{
+        &--enabled:active{
             background: var(--color-green-200);
             color: var(--color-green-900)
         }
 
+        &--enabled:hover{
+            cursor: pointer;
+        }
+
+        &--disabled:hover{
+            cursor: not-allowed;
+        }
+        
     }
 
     @media (min-width: $breakpoint-tablet) {

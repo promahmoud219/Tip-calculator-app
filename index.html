@@ -54,6 +54,7 @@
               min="0"
               step="any"
               class="form-control__input"  
+              inputmode="decimal"
             >
 
           </div>
@@ -68,6 +69,7 @@
             <label class="tip-option">
               <input 
                 type="radio" 
+                class="tip-input"
                 name="tip" 
                 value="5"
               >
@@ -77,6 +79,7 @@
             <label class="tip-option">
               <input 
                 type="radio" 
+                class="tip-input"
                 name="tip" 
                 value="10"
               >
@@ -86,6 +89,7 @@
             <label class="tip-option">
               <input 
                 type="radio" 
+                class="tip-input"
                 name="tip" 
                 value="15"
               >
@@ -95,6 +99,7 @@
             <label class="tip-option">
               <input 
                 type="radio" 
+                class="tip-input"
                 name="tip" 
                 value="25"
               >
@@ -104,6 +109,7 @@
             <label class="tip-option">
               <input 
                 type="radio" 
+                class="tip-input"
                 name="tip" 
                 value="50"
               >
@@ -129,14 +135,14 @@
           <div class="form-control__label-container">
             <label 
               class="form-control__label" 
-              for="people"
+              for="people-input"
             > 
               Number of People 
             </label>
 
             <span
                 id="people-input-error"
-                class="input-error"
+                class="people-input-error"
                 hidden
             >
                 Can't be zero
@@ -154,7 +160,7 @@
             
             <input 
               type="number" 
-              id="people"
+              id="people-input"
               name="people" 
               min="1" 
               max="100" 
@@ -218,9 +224,9 @@
         </div>
         
         <button 
-          class="reset-button" 
+          class="reset-button reset-button--disabled" 
           type="reset"
-          disabled
+          disabled 
         >
           RESET
         </button>
@@ -231,5 +237,6 @@
 
   </main>
   
+  <script src="./main.js" defer></script>
 </body>
 </html>
