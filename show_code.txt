@@ -38,14 +38,15 @@ FILE: ./index.html
         
         <div class="form-control">
       
-          <label for="bill-input">Bill</label>
+          <label class="form-control__label" for="bill-input">Bill</label>
       
-          <div class="input-container">
+          <div class="form-control__input-wrapper">
 
             <img 
               src="./images/icon-dollar.svg" 
               alt="" 
               aria-hidden="true"
+              class="form-control__icon"  
             >
             
             <input 
@@ -55,6 +56,7 @@ FILE: ./index.html
               name="bill"
               min="0"
               step="any"
+              class="form-control__input"  
             >
 
           </div>
@@ -63,7 +65,7 @@ FILE: ./index.html
         
         <fieldset class="tip-section">
           
-          <legend class="tip-selection__label">Select Tip %</legend>
+          <legend class="tip-section__label">Select Tip %</legend>
 
           <div class="tip-options">
             <label class="tip-option">
@@ -113,8 +115,9 @@ FILE: ./index.html
 
             <input 
               type="number"
-              name="tip"
+              name="customTip"
               placeholder="Custom"
+              class="custom-input"
               aria-label="Custom tip percentage"
               min="0"
               max="100"
@@ -127,14 +130,15 @@ FILE: ./index.html
         
         <div class="form-control">
           
-          <label for="people">Number of People</label>
+          <label class="form-control__label" for="people">Number of People</label>
           
-          <div class="input-container">
+          <div class="form-control__input-wrapper form-control__input-wrapper--error">
 
             <img 
               src="./images/icon-person.svg" 
               alt="" 
               aria-hidden="true"
+              class="form-control__icon"
             >
             
             <input 
@@ -145,6 +149,7 @@ FILE: ./index.html
               max="100" 
               step="1" 
               placeholder="0"
+              class="form-control__input"
             >
 
           </div>
@@ -247,6 +252,7 @@ FILE: ./styles/main.css
   --spacing-200: 16px;
   --spacing-300: 24px;
   --spacing-400: 32px;
+  --spacing-500: 40px;
   --spacing-600: 48px;
   --spacing-1000: 80px;
   --spacing-1200: 96px;
@@ -309,7 +315,310 @@ body {
   min-height: 100vh;
 }
 
+.tip-section {
+  max-width: 100%;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-100);
+}
+.tip-section .tip-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--spacing-200);
+}
+@media (min-width: 48rem) {
+  .tip-section .tip-options {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.tip-section .tip-options .custom-input {
+  border: none;
+  color: var(--color-grey-550);
+  background: var(--color-grey-50);
+  border-radius: 5px;
+  text-align: center;
+  font-family: "Space Mono", monospace;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 36px;
+  padding: var(--spacing-100) var(--spacing-200);
+}
+.tip-section .tip-options .custom-input::-moz-placeholder {
+  color: var(--color-grey-550);
+}
+.tip-section .tip-options .custom-input::placeholder {
+  color: var(--color-grey-550);
+}
+.tip-section .tip-options .custom-input:focus {
+  border: 2px solid var(--color-grey-900);
+  outline-offset: 2px;
+}
+.tip-section .tip-options .custom-input {
+  /* Chrome, Edge, Safari */
+}
+.tip-section .tip-options .custom-input::-webkit-inner-spin-button, .tip-section .tip-options .custom-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.tip-section .tip-options .custom-input {
+  /* for Firefox */
+  -webkit-appearance: textfield;
+     -moz-appearance: textfield;
+          appearance: textfield;
+}
+.tip-section__label {
+  font-family: "Space Mono", monospace;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  color: var(--color-grey-500);
+}
+
+.tip-option {
+  font-family: "Space Mono", monospace;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 36px;
+  padding: var(--spacing-100) var(--spacing-200);
+  border-radius: 5px;
+  background: var(--color-green-900);
+  color: var(--color-white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.tip-option input[type=radio] {
+  -moz-appearance: none;
+       appearance: none;
+  -webkit-appearance: none;
+  position: absolute;
+  opacity: 0;
+}
+.tip-option:hover {
+  cursor: pointer;
+}
+.tip-option:has(input:focus-visible) {
+  outline: 2px solid var(--color-green-400);
+}
+.tip-option:has(input:checked) {
+  background: var(--color-green-200);
+  color: var(--color-green-900);
+}
+.tip-option span {
+  font-family: "Space Mono", monospace;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 36px;
+}
+
 .bill-section {
-  background: rgba(189, 8, 206, 0.1764705882);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-400);
+}
+@media (min-width: 48rem) {
+  .bill-section {
+    gap: var(--spacing-300);
+  }
+}
+@media (min-width: 90rem) {
+  .bill-section {
+    gap: var(--spacing-500);
+  }
+}
+
+.results-section {
+  background: var(--color-green-900);
+  padding: var(--spacing-300);
+  border-radius: var(--spacing-200);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-400);
+}
+.results-section .results-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-300);
+}
+.results-section .results-container .result {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.results-section .results-container .result-label {
+  display: flex;
+  flex-direction: column;
+}
+.results-section .results-container .result span:first-child {
+  font-family: "Space Mono", monospace;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  color: var(--color-white);
+}
+.results-section .results-container .result span:nth-child(2) {
+  font-family: "Space Mono", monospace;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 19px;
+  color: var(--color-grey-400);
+}
+.results-section .results-container .result-value {
+  font-family: "Space Mono", monospace;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 47px;
+  color: var(--color-green-400);
+}
+.results-section .reset-button {
+  font-family: "Space Mono", monospace;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 30px;
+  background: var(--color-green-750);
+  color: var(--color-green-800);
+  padding: var(--spacing-100) var(--spacing-400);
+  border-radius: 5px;
+}
+.results-section .reset-button:active {
+  background: var(--color-green-200);
+  color: var(--color-green-900);
+}
+@media (min-width: 48rem) {
+  .results-section {
+    padding: var(--spacing-300) var(--spacing-400);
+    gap: var(--spacing-200);
+  }
+  .results-section .results-container {
+    gap: var(--spacing-100);
+  }
+  .results-section .results-container .result-value {
+    font-family: "Space Mono", monospace;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 71px;
+  }
+}
+@media (min-width: 90rem) {
+  .results-section {
+    justify-content: space-between;
+  }
+  .results-section .results-container {
+    gap: var(--spacing-300);
+  }
+}
+
+.form-control {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-100);
+}
+.form-control__label {
+  font-family: "Space Mono", monospace;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  color: var(--color-grey-500);
+}
+.form-control__input-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: var(--color-grey-50);
+  border-radius: 5px;
+  position: relative;
+}
+.form-control__icon {
+  width: 13px;
+  height: 20px;
+  position: absolute;
+  left: var(--spacing-200);
+}
+.form-control__input {
+  font-family: "Space Mono", monospace;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 36px;
+  /* Chrome, Edge, Safari */
+}
+.form-control__input::-webkit-inner-spin-button, .form-control__input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.form-control__input {
+  /* for Firefox */
+  -webkit-appearance: textfield;
+     -moz-appearance: textfield;
+          appearance: textfield;
+  padding: var(--spacing-100) var(--spacing-200);
+  width: 100%;
+  min-width: 0;
+  color: var(--color-green-900);
+  text-align: right;
+  background: transparent;
+  border: 2px solid transparent;
+}
+.form-control__input:hover {
+  cursor: text;
+}
+.form-control__input:focus {
+  border: 2px solid var(--color-green-400);
+}
+.form-control__input--error {
+  border: 2px solid var(--color-orange-400);
+}
+
+.tip-calculator {
+  width: 100%;
+  max-width: 920px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-400);
+  padding: var(--spacing-400) var(--spacing-300);
+  background: var(--color-white);
+  border-radius: var(--spacing-300);
+}
+@media (min-width: 48rem) {
+  .tip-calculator {
+    padding: var(--spacing-600) var(--spacing-1000);
+    gap: var(--spacing-500);
+  }
+}
+@media (min-width: 90rem) {
+  .tip-calculator {
+    padding: var(--spacing-400);
+    gap: var(--spacing-600);
+    display: flex;
+    flex-direction: row;
+  }
+  .tip-calculator > * {
+    flex: 1;
+  }
+}
+
+main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-500);
+}
+@media (min-width: 48rem) {
+  main {
+    padding: 80px;
+  }
+}
+@media (min-width: 48rem) {
+  main {
+    gap: 88px;
+  }
+}
+
+.site-logo {
+  width: 86.66px;
+  height: 53.14px;
 }/*# sourceMappingURL=main.css.map */
 

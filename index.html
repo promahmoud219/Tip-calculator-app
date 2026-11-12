@@ -126,10 +126,24 @@
         </fieldset>
         
         <div class="form-control">
+          <div class="form-control__label-container">
+            <label 
+              class="form-control__label" 
+              for="people"
+            > 
+              Number of People 
+            </label>
+
+            <span
+                id="people-input-error"
+                class="input-error"
+                hidden
+            >
+                Can't be zero
+            </span>
+          </div>
           
-          <label class="form-control__label" for="people">Number of People</label>
-          
-          <div class="form-control__input-wrapper form-control__input-wrapper--error">
+          <div class="form-control__input-wrapper">
 
             <img 
               src="./images/icon-person.svg" 
@@ -145,9 +159,12 @@
               min="1" 
               max="100" 
               step="1" 
-              placeholder="333"
+              placeholder="0"
               class="form-control__input"
+              aria-describedby="people-input-error"
+              aria-invalid="false"
             >
+
 
           </div>
           
@@ -174,7 +191,7 @@
               class="result-value"
               aria-labelledby="tip-amount-label tip-amount-unit"
             >
-              $4.27
+              $0.00
             </output>
 
           </div>
@@ -193,7 +210,7 @@
               class="result-value"
               aria-labelledby="total-label total-unit"
             >
-              $32.79
+              $0.00
             </output>
 
           </div>

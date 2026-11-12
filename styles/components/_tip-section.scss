@@ -1,4 +1,7 @@
 @use "./../abstracts/typography" as *;
+@use "./../abstracts/breakpoints" as *;
+@use "./../abstracts/mixins" as *;
+
 
 .tip-section{
 

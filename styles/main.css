@@ -272,6 +272,9 @@ body {
   }
 }
 @media (min-width: 90rem) {
+  .results-section {
+    justify-content: space-between;
+  }
   .results-section .results-container {
     gap: var(--spacing-300);
   }
@@ -281,6 +284,18 @@ body {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-100);
+}
+.form-control__label-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.form-control__label-container .input-error {
+  font-family: "Space Mono", monospace;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  color: var(--color-orange-400);
 }
 .form-control__label {
   font-family: "Space Mono", monospace;
@@ -296,6 +311,9 @@ body {
   background: var(--color-grey-50);
   border-radius: 5px;
   position: relative;
+}
+.form-control__input-wrapper--error {
+  border: 2px solid var(--color-orange-400);
 }
 .form-control__icon {
   width: 13px;
@@ -332,9 +350,6 @@ body {
 }
 .form-control__input:focus {
   border: 2px solid var(--color-green-400);
-}
-.form-control__input--error {
-  border: 2px solid var(--color-orange-400);
 }
 
 .tip-calculator {

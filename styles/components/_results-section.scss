@@ -1,4 +1,5 @@
 @use "./../abstracts/typography" as *;
+@use "./../abstracts/breakpoints" as *;
 
 .results-section{
     
@@ -78,6 +79,7 @@
     }
     
     @media (min-width: $breakpoint-desktop) {
+        justify-content: space-between;
 
         .results-container{
             gap: var(--spacing-300);    

@@ -1,4 +1,5 @@
 @use "./../abstracts/typography" as *;
+@use "./../abstracts/mixins" as *;
 
 
 .form-control{
@@ -8,6 +9,18 @@
     gap: var(--spacing-100);
 
     
+    &__label-container{
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+        .input-error{
+            @include text-preset(5);
+            color: var(--color-orange-400);
+        }
+    }
+
     &__label{
         @include text-preset(5);
         color: var(--color-grey-500);
@@ -21,11 +34,16 @@
         background: var(--color-grey-50);
         border-radius: 5px;
         
-        
         position: relative;
+
+        &--error{
+            border: 2px solid var(--color-orange-400);
+        }
+
 
     }
     
+
     &__icon{
         width: 13px;
         height: 20px;
@@ -54,9 +72,6 @@
         &:focus{
             border: 2px solid var(--color-green-400);
         }
-    
-        &--error{
-            border: 2px solid var(--color-orange-400);
-        }
+ 
     }
 }
