@@ -1,0 +1,13 @@
+@mixin hide-number-spin-buttons {
+    
+    /* Chrome, Edge, Safari */
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button{
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    
+    /* for Firefox */
+    appearance: textfield;
+
+}

@@ -1,6 +1,7 @@
 @use "./../abstracts/spacing" as *;
 @use "./../abstracts/colors" as *;
 @use "./../abstracts/typography" as *;
+@use "./../abstracts/mixins" as *;
 
 
 .tip-section{
@@ -37,16 +38,7 @@
                 outline-offset: 2px;
             }
             
-            /* Chrome, Edge, Safari */
-            &::-webkit-inner-spin-button,
-            &::-webkit-outer-spin-button{
-                -webkit-appearance: none;
-                margin: 0;
-            }
-            
-            /* for Firefox */
-            appearance: textfield;
-
+            @include hide-number-spin-buttons;
         }
     }
     

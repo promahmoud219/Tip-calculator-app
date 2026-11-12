@@ -9,7 +9,7 @@
 
     padding: var(--spacing-100) var(--spacing-200);
     border-radius: 5px;
-    
+
     background: var(--color-green-900);
     color: var(--color-white);
     
@@ -33,9 +33,7 @@
     }
     
     &:has(input:focus-visible){
-        // border: 2px solid var(--color-green-400);    
-        outline: 2px solid red !important;    
-        outline-offset: 0;
+        outline: 2px solid var(--color-green-400);    
     }
 
     &:has(input:checked){

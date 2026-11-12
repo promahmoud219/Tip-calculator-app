@@ -2,6 +2,8 @@
 @use "./../abstracts/typography" as *;
 @use "./../abstracts/spacing" as *;
 @use "./../abstracts/breakpoints" as *;
+@use "./../abstracts/mixins" as *;
+
 
 
 .form-control{
@@ -39,6 +41,7 @@
     
     &__input{
         @include text-preset(3);
+        @include hide-number-spin-buttons;
          
         padding: var(--spacing-100) var(--spacing-200);
 
