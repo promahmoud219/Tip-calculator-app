@@ -85,6 +85,61 @@ body {
   min-height: 100vh;
 }
 
+.tip-section {
+  max-width: 100%;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-100);
+}
+.tip-section .tip-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--spacing-200);
+}
+.tip-section .tip-options .custom-input {
+  border: none;
+  color: var(--color-grey-550);
+  background: var(--color-grey-50);
+  border-radius: 5px;
+  text-align: center;
+  font-family: "Space Mono", monospace;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 36px;
+  padding: var(--spacing-100) var(--spacing-200);
+}
+.tip-section .tip-options .custom-input::-moz-placeholder {
+  color: var(--color-grey-550);
+}
+.tip-section .tip-options .custom-input::placeholder {
+  color: var(--color-grey-550);
+}
+.tip-section .tip-options .custom-input:focus {
+  border: 2px solid var(--color-grey-900);
+  outline-offset: 2px;
+}
+.tip-section .tip-options .custom-input {
+  /* Chrome, Edge, Safari */
+}
+.tip-section .tip-options .custom-input::-webkit-inner-spin-button, .tip-section .tip-options .custom-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.tip-section .tip-options .custom-input {
+  /* for Firefox */
+  -webkit-appearance: textfield;
+     -moz-appearance: textfield;
+          appearance: textfield;
+}
+.tip-section__label {
+  font-family: "Space Mono", monospace;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  color: var(--color-grey-500);
+}
+
 .tip-option {
   font-family: "Space Mono", monospace;
   font-size: 24px;
@@ -94,14 +149,34 @@ body {
   border-radius: 5px;
   background: var(--color-green-900);
   color: var(--color-white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.tip-option input[type=radio] {
+  -moz-appearance: none;
+       appearance: none;
+  -webkit-appearance: none;
+  position: absolute;
+  opacity: 0;
 }
 .tip-option:hover {
-  background: var(--color-green-400);
-  color: var(--color-green-900);
+  cursor: pointer;
 }
-.tip-option--selected {
+.tip-option:has(input:focus-visible) {
+  outline: 2px solid red !important;
+  outline-offset: 0;
+}
+.tip-option:has(input:checked) {
   background: var(--color-green-200);
   color: var(--color-green-900);
+}
+.tip-option span {
+  font-family: "Space Mono", monospace;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 36px;
 }
 
 .bill-section {
@@ -247,6 +322,15 @@ body {
   border: 2px solid var(--color-orange-400);
 }
 
+.tip-calculator {
+  width: 100%;
+  max-width: 920px;
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-400) var(--spacing-300);
+  background: var(--color-white);
+}
+
 main {
   min-height: 100vh;
   max-width: 100%;
@@ -264,13 +348,4 @@ main {
 .site-logo {
   width: 86.66px;
   height: 53.14px;
-}
-
-.tip-calculator {
-  width: 100%;
-  max-width: 920px;
-  display: flex;
-  flex-direction: column;
-  padding: var(--spacing-400) var(--spacing-300);
-  background: var(--color-white);
 }/*# sourceMappingURL=main.css.map */

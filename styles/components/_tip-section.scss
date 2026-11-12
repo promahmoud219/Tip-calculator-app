@@ -1,0 +1,60 @@
+@use "./../abstracts/spacing" as *;
+@use "./../abstracts/colors" as *;
+@use "./../abstracts/typography" as *;
+
+
+.tip-section{
+
+    max-width: 100%;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-100);
+
+    .tip-options{
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--spacing-200);
+
+
+        .custom-input{
+
+            border: none;
+            color: var(--color-grey-550);
+            background: var(--color-grey-50);
+            border-radius: 5px;
+            text-align: center;
+            @include text-preset(3);
+            padding: var(--spacing-100) var(--spacing-200);
+            
+            
+            &::placeholder{
+                color: var(--color-grey-550);
+            }
+
+            &:focus{
+                border: 2px solid var(--color-grey-900);
+                outline-offset: 2px;
+            }
+            
+            /* Chrome, Edge, Safari */
+            &::-webkit-inner-spin-button,
+            &::-webkit-outer-spin-button{
+                -webkit-appearance: none;
+                margin: 0;
+            }
+            
+            /* for Firefox */
+            appearance: textfield;
+
+        }
+    }
+    
+    &__label{
+        @include text-preset(5);
+        color: var(--color-grey-500);
+    }
+
+}
+
+

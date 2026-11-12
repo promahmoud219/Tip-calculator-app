@@ -10,44 +10,18 @@
 @use "base/global" as *;
 
 // Components
+@use "components/tip-section" as *;
 @use "components/tip-option" as *;
 @use "components/bill-section" as *;
 @use "components/results-section" as *;
 @use "components/form-control" as *;
 
+//layouts
+@use "layout/calculator" as *;
+@use "layout/main" as *;
 
-
-main {
-    min-height: 100vh;
-    max-width: 100%; 
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    @media (min-width: $breakpoint-tablet) {
-        padding: 80px;
-    }
-
-
-}
-
+ 
 .site-logo{
     width: 86.66px;
     height: 53.14px;
 }
-
-
-.tip-calculator{
-    width: 100%;
-    max-width: 920px;
-    
-    display: flex;
-    flex-direction: column;
-    
-    padding: var(--spacing-400) var(--spacing-300);
-    background: var(--color-white);
-}
-
- 

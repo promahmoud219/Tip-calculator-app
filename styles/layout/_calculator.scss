@@ -1,0 +1,14 @@
+@use "./../abstracts/spacing" as *;
+@use "./../abstracts/colors" as *;
+
+.tip-calculator{
+    width: 100%;
+    max-width: 920px;
+    
+    display: flex;
+    flex-direction: column;
+    
+    padding: var(--spacing-400) var(--spacing-300);
+    background: var(--color-white);
+
+}
