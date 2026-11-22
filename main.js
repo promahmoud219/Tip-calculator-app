@@ -25,7 +25,10 @@ function updateResults() {
     console.log(`num of people: ${peopleInput?.valueAsNumber}`);
     
     
-    
+    const billValue = getBillInput();
+    const tipPercentage = getTipPercentage(checkedTipInput, customInput);
+    const numberOfPeople = getNumberOfPeople();
+
 
     // if(!validateInputs()) {
     //     return 
@@ -63,11 +66,17 @@ tipInputs.forEach(input => {
     });
 
 });
+ 
 
-customInput.addEventListener("focus", (e) => {
-    uncheckTipInputs();
-    updateResults();
-});
+["focus", "input"].forEach((eventName) => {
+    customInput.addEventListener(eventName, () => {
+        uncheckTipInputs();
+        updateResults();
+    })
+})
+
+
+
 
 peopleInput.addEventListener("input", (e) => {
 
@@ -81,16 +90,7 @@ peopleInput.addEventListener("input", (e) => {
 
 })
 
-
-
-// calcTipPerPerson{
-//     return (billInput.value / numberOfPeople) * tipPercentage;
-// }
-
-// calcTotalPerPerson { 
-//     return (billInput.value / numberOfPeople) + calcTipPerPerson;
-// }
-
+ 
 function uncheckTipInputs(){
     tipInputs.forEach(input => {
         input.checked = false; 
@@ -99,4 +99,52 @@ function uncheckTipInputs(){
 
 function resetCustomInput(){
     customInput.value = ""; 
+}
+
+
+
+
+
+
+function getBillInput() {
+    
+}
+
+function getNumberOfPeople() {
+    
+}
+
+ 
+//  — فحص المدخلات.
+function getTipPercentage(checkedTipInput, customInput){
+    
+    if (checkedTipInput) {
+        const value = Number(checkedTipInput.value);
+        return Number.isNaN(value) ? 0 : (value / 100); 
+    }
+
+    const customValue = customInput?.valueAsNumber;
+
+    if (customValue >= 0 && !Number.isNaN(customValue) && typeof customValue === "number")
+        return (customValue / 100);
+
+    return undefined;
+}
+
+function calcTipPerPerson(billInput, numberOfPeople, tipPercentage){
+    return (billInput / numberOfPeople) * tipPercentage;
+}
+
+function calcTotalPerPerson(billInput, numberOfPeople) {
+    return (billInput / numberOfPeople) + calcTipPerPerson();
+}
+
+
+
+function updateUI(){
+        
+}
+
+function enableReset(){
+
 }
