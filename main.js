@@ -30,8 +30,10 @@ function updateResults() {
     //     return;
     // }
 
-    // calcTotalAmountPerPerson();
-    // updateUI();
+    const tipPerPerson = calcTipPerPerson(billValue, numberOfPeople, tipPercentage);
+    const TotalPerPerson = calcTotalPerPerson(billValue, numberOfPeople);
+
+    updateUI(tipPerPerson, TotalPerPerson);
     // enableReset();
     // resetCalculator();
 }
@@ -117,16 +119,17 @@ function getTipPercentage(checkedTipInput, customInput) {
     return undefined;
 }
 
-function calcTipPerPerson(billInput, numberOfPeople, tipPercentage) {
-    return (billInput / numberOfPeople) * tipPercentage;
+function calcTipPerPerson(billValue, numberOfPeople, tipPercentage) {
+    return (billValue / numberOfPeople) * tipPercentage;
 }
 
-function calcTotalPerPerson(billInput, numberOfPeople) {
-    return (billInput / numberOfPeople) + calcTipPerPerson();
+function calcTotalPerPerson(billValue, numberOfPeople) {
+    return (billValue / numberOfPeople) + calcTipPerPerson();
 }
 
-function updateUI() {
-    
+function updateUI(tipPerPerson, TotalPerPerson) {
+    tipAmount.textContent = tipPerPerson;
+    totalAmount.textContent = TotalPerPerson;
 }
 
 function enableReset() {
