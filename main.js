@@ -21,6 +21,7 @@ function updateResults() {
 
     if (!validateInputs(billValue, tipPercentage, numberOfPeople)) {
         resetCalculator();
+        disableResetBtn()
         return;
     }
 
@@ -37,12 +38,9 @@ function updateResults() {
     );
 
     updateUI(tipPerPerson.toFixed(2), totalPerPerson.toFixed(2));
-    // enableReset();
-    
-
+    enableResetBtn();
 }
-
-
+ 
 
 formControlInputs.forEach(input => {
 
@@ -80,6 +78,10 @@ peopleInput.addEventListener("input", (e) => {
 
     updateResults();
 });
+
+resetButton.addEventListener("click", () => {
+    resetCalculator();
+})
 
 function uncheckTipInputs() {
     tipInputs.forEach(input => {
@@ -153,3 +155,16 @@ function resetCalculator() {
     tipAmount.textContent = "$0.00";
     totalAmount.textContent = "$0.00";
 }
+
+function enableResetBtn() {
+    resetButton.disabled = false;          
+    resetButton.classList.add("reset-button--enabled");
+    resetButton.classList.remove("reset-button--disabled");
+}
+
+function disableResetBtn() {
+    resetButton.disabled = true;          
+    resetButton.classList.remove("reset-button--enabled");
+    resetButton.classList.add("reset-button--disabled");
+}
+
