@@ -12,7 +12,6 @@ const totalAmount = document.getElementById("total-amount");
 
 const resetButton = document.querySelector(".reset-button");
 
-
  
 function updateResults() {
  
@@ -20,17 +19,25 @@ function updateResults() {
     const tipPercentage = getTipPercentage();
     const numberOfPeople = getNumberOfPeople();
 
+    if (!validateInputs(billValue, tipPercentage, numberOfPeople)) 
+        return;
+    
+    const tipPerPerson = calcTipPerPerson(
+        billValue,
+        numberOfPeople,
+        tipPercentage
+    );
 
-    // if (!validateInputs()) {
-    //     return;
-    // }
-
-    const tipPerPerson = calcTipPerPerson(billValue, numberOfPeople, tipPercentage);
-    const totalPerPerson = calcTotalPerPerson(billValue, numberOfPeople, tipPercentage);
+    const totalPerPerson = calcTotalPerPerson(
+        billValue,
+        numberOfPeople,
+        tipPercentage
+    );
 
     updateUI(tipPerPerson.toFixed(2), totalPerPerson.toFixed(2));
     // enableReset();
     // resetCalculator();
+
 }
 
 
@@ -83,39 +90,17 @@ function resetCustomInput() {
 }
 
 function getBillValue() {
-    const billValue = billInput?.valueAsNumber;
-    
-    if (billValue > 0 && Number.isFinite(billValue)) 
-        return billValue;
-        
-    return undefined;
+    return billValue = billInput?.valueAsNumber;
 }
 
 function getNumberOfPeople() {
-    const numOfPeople = peopleInput?.valueAsNumber;
-    
-    if (numOfPeople > 0 && Number.isFinite(numOfPeople)) 
-        return numOfPeople;
-        
-    return undefined;
+    return numOfPeople = peopleInput?.valueAsNumber; 
 }
 
-// — فحص المدخلات.
+
 function getTipPercentage() {
     const checkedTipInput = document.querySelector(".tip-input:checked");
-
-    if (checkedTipInput) {
-        const value = Number(checkedTipInput.value);
-        return Number.isNaN(value) ? 0 : (value / 100);
-    }
-
-    const customValue = customInput?.valueAsNumber;
-
-    if (customValue >= 0 && !Number.isNaN(customValue) && typeof customValue === "number") {
-        return (customValue / 100);
-    }
-
-    return undefined;
+    return Number((checkedTipInput) ? checkedTipInput.value : customInput?.valueAsNumber) / 100; 
 }
 
 function calcTipPerPerson(billValue, numberOfPeople, tipPercentage) {
@@ -134,3 +119,31 @@ function updateUI(tipPerPerson, totalPerPerson) {
 function enableReset() {
     
 }
+
+function validateInputs(billValue, tipPercentage, numberOfPeople) {
+    const isBillValid = isValidBill(billValue);
+    const isTipValid = isValidTip(tipPercentage);
+    const isPeopleValid = isValidPeople(numberOfPeople);
+
+    return isBillValid && isTipValid && isPeopleValid;
+}
+
+
+function isValidBill(billValue) {
+    return billValue > 0 && Number.isFinite(billValue);
+}
+
+
+function isValidTip(tipPercentage) {
+    return (
+        tipPercentage >= 0 &&
+        !Number.isNaN(tipPercentage) &&
+        typeof tipPercentage === "number"
+    ); 
+}
+
+
+function isValidPeople(numberOfPeople) {
+    return numberOfPeople > 0 && Number.isFinite(numberOfPeople);
+}
+
