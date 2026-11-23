@@ -84,7 +84,7 @@ function resetCustomInput() {
 function getBillValue() {
     const billValue = billInput?.valueAsNumber;
     
-    if (billValue > 0 && !Number.isNaN(billValue) && typeof billValue === "number") 
+    if (billValue > 0 && Number.isFinite(billValue)) 
         return billValue;
         
     return undefined;
