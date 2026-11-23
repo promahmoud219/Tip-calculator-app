@@ -92,11 +92,11 @@ function resetCustomInput() {
 }
 
 function getBillValue() {
-    return billValue = billInput.valueAsNumber;
+    return billInput.valueAsNumber;
 }
 
 function getNumberOfPeople() {
-    return numOfPeople = peopleInput.valueAsNumber; 
+    return peopleInput.valueAsNumber; 
 }
 
 
