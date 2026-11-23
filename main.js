@@ -12,17 +12,12 @@ const totalAmount = document.getElementById("total-amount");
 
 const resetButton = document.querySelector(".reset-button");
 
+
+ 
 function updateResults() {
-    const checkedTipInput = document.querySelector(".tip-input:checked");
-
-    console.log("you called updateResults()");
-    console.log(`bill input: ${billInput?.valueAsNumber}`);
-    console.log(`tip percentage: ${checkedTipInput?.value}`);
-    console.log(`custom input: ${customInput?.valueAsNumber}`);
-    console.log(`num of people: ${peopleInput?.valueAsNumber}`);
-
+ 
     const billValue = getBillValue();
-    const tipPercentage = getTipPercentage(checkedTipInput, customInput);
+    const tipPercentage = getTipPercentage();
     const numberOfPeople = getNumberOfPeople();
 
 
@@ -31,12 +26,14 @@ function updateResults() {
     // }
 
     const tipPerPerson = calcTipPerPerson(billValue, numberOfPeople, tipPercentage);
-    const TotalPerPerson = calcTotalPerPerson(billValue, numberOfPeople);
+    const totalPerPerson = calcTotalPerPerson(billValue, numberOfPeople, tipPercentage);
 
-    updateUI(tipPerPerson, TotalPerPerson);
+    updateUI(tipPerPerson.toFixed(2), totalPerPerson.toFixed(2));
     // enableReset();
     // resetCalculator();
 }
+
+
 
 formControlInputs.forEach(input => {
 
@@ -104,7 +101,9 @@ function getNumberOfPeople() {
 }
 
 // — فحص المدخلات.
-function getTipPercentage(checkedTipInput, customInput) {
+function getTipPercentage() {
+    const checkedTipInput = document.querySelector(".tip-input:checked");
+
     if (checkedTipInput) {
         const value = Number(checkedTipInput.value);
         return Number.isNaN(value) ? 0 : (value / 100);
@@ -123,13 +122,13 @@ function calcTipPerPerson(billValue, numberOfPeople, tipPercentage) {
     return (billValue / numberOfPeople) * tipPercentage;
 }
 
-function calcTotalPerPerson(billValue, numberOfPeople) {
-    return (billValue / numberOfPeople) + calcTipPerPerson();
+function calcTotalPerPerson(billValue, numberOfPeople, tipPercentage) {
+    return (billValue / numberOfPeople) * (1 + tipPercentage);
 }
 
-function updateUI(tipPerPerson, TotalPerPerson) {
-    tipAmount.textContent = tipPerPerson;
-    totalAmount.textContent = TotalPerPerson;
+function updateUI(tipPerPerson, totalPerPerson) {
+    tipAmount.textContent = `$${tipPerPerson}`;
+    totalAmount.textContent = `$${totalPerPerson}`;
 }
 
 function enableReset() {
