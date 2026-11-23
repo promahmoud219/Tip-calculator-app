@@ -19,9 +19,11 @@ function updateResults() {
     const tipPercentage = getTipPercentage();
     const numberOfPeople = getNumberOfPeople();
 
-    if (!validateInputs(billValue, tipPercentage, numberOfPeople)) 
+    if (!validateInputs(billValue, tipPercentage, numberOfPeople)) {
+        resetCalculator();
         return;
-    
+    }
+
     const tipPerPerson = calcTipPerPerson(
         billValue,
         numberOfPeople,
@@ -36,7 +38,7 @@ function updateResults() {
 
     updateUI(tipPerPerson.toFixed(2), totalPerPerson.toFixed(2));
     // enableReset();
-    // resetCalculator();
+    
 
 }
 
@@ -90,11 +92,11 @@ function resetCustomInput() {
 }
 
 function getBillValue() {
-    return billValue = billInput?.valueAsNumber;
+    return billValue = billInput.valueAsNumber;
 }
 
 function getNumberOfPeople() {
-    return numOfPeople = peopleInput?.valueAsNumber; 
+    return numOfPeople = peopleInput.valueAsNumber; 
 }
 
 
@@ -147,3 +149,7 @@ function isValidPeople(numberOfPeople) {
     return numberOfPeople > 0 && Number.isFinite(numberOfPeople);
 }
 
+function resetCalculator() {
+    tipAmount.textContent = "$0.00";
+    totalAmount.textContent = "$0.00";
+}
