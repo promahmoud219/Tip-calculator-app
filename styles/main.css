@@ -121,7 +121,7 @@ body {
   color: var(--color-grey-550);
 }
 .tip-section .tip-options .custom-input:focus {
-  border: 2px solid var(--color-grey-900);
+  border: 2px solid var(--color-green-900);
   outline-offset: 2px;
 }
 .tip-section .tip-options .custom-input {
@@ -254,6 +254,10 @@ body {
 }
 .results-section .reset-button--enabled:active {
   background: var(--color-green-200);
+  color: var(--color-green-900);
+}
+.results-section .reset-button--enabled {
+  background: var(--color-green-400);
   color: var(--color-green-900);
 }
 .results-section .reset-button--enabled:hover {

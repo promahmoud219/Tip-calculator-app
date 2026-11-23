@@ -115,15 +115,11 @@ function calcTotalPerPerson(billValue, numberOfPeople, tipPercentage) {
     return (billValue / numberOfPeople) * (1 + tipPercentage);
 }
 
-function updateUI(tipPerPerson, totalPerPerson) {
+function updateUI(tipPerPerson, totalPerPerson) {   
     tipAmount.textContent = `$${tipPerPerson}`;
     totalAmount.textContent = `$${totalPerPerson}`;
 }
-
-function enableReset() {
-    
-}
-
+ 
 function validateInputs(billValue, tipPercentage, numberOfPeople) {
     const isBillValid = isValidBill(billValue);
     const isTipValid = isValidTip(tipPercentage);

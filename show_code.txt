@@ -57,6 +57,7 @@ FILE: ./index.html
               min="0"
               step="any"
               class="form-control__input"  
+              inputmode="decimal"
             >
 
           </div>
@@ -71,6 +72,7 @@ FILE: ./index.html
             <label class="tip-option">
               <input 
                 type="radio" 
+                class="tip-input"
                 name="tip" 
                 value="5"
               >
@@ -80,6 +82,7 @@ FILE: ./index.html
             <label class="tip-option">
               <input 
                 type="radio" 
+                class="tip-input"
                 name="tip" 
                 value="10"
               >
@@ -89,6 +92,7 @@ FILE: ./index.html
             <label class="tip-option">
               <input 
                 type="radio" 
+                class="tip-input"
                 name="tip" 
                 value="15"
               >
@@ -98,6 +102,7 @@ FILE: ./index.html
             <label class="tip-option">
               <input 
                 type="radio" 
+                class="tip-input"
                 name="tip" 
                 value="25"
               >
@@ -107,6 +112,7 @@ FILE: ./index.html
             <label class="tip-option">
               <input 
                 type="radio" 
+                class="tip-input"
                 name="tip" 
                 value="50"
               >
@@ -117,6 +123,7 @@ FILE: ./index.html
               type="number"
               name="customTip"
               placeholder="Custom"
+              id="custom-input"
               class="custom-input"
               aria-label="Custom tip percentage"
               min="0"
@@ -129,10 +136,24 @@ FILE: ./index.html
         </fieldset>
         
         <div class="form-control">
+          <div class="form-control__label-container">
+            <label 
+              class="form-control__label" 
+              for="people-input"
+            > 
+              Number of People 
+            </label>
+
+            <span
+                id="people-input-error"
+                class="people-input-error"
+                hidden
+            >
+                Can't be zero
+            </span>
+          </div>
           
-          <label class="form-control__label" for="people">Number of People</label>
-          
-          <div class="form-control__input-wrapper form-control__input-wrapper--error">
+          <div class="form-control__input-wrapper">
 
             <img 
               src="./images/icon-person.svg" 
@@ -143,14 +164,17 @@ FILE: ./index.html
             
             <input 
               type="number" 
-              id="people"
+              id="people-input"
               name="people" 
               min="1" 
               max="100" 
               step="1" 
               placeholder="0"
               class="form-control__input"
+              aria-describedby="people-input-error"
+              aria-invalid="false"
             >
+
 
           </div>
           
@@ -204,9 +228,10 @@ FILE: ./index.html
         </div>
         
         <button 
-          class="reset-button" 
+          class="reset-button reset-button--disabled" 
+          id="reset-button"
           type="reset"
-          disabled
+          disabled 
         >
           RESET
         </button>
@@ -217,12 +242,183 @@ FILE: ./index.html
 
   </main>
   
+  <script src="./main.js" defer></script>
 </body>
 </html>
 
 ==========================================
 FILE: ./main.js
 ==========================================
+const billInput = document.getElementById("bill-input");
+const formControlInputs = document.querySelectorAll(".form-control__input");
+
+const tipInputs = document.querySelectorAll(".tip-input");
+const customInput = document.getElementById("custom-input");
+
+const peopleInput = document.getElementById("people-input");
+const peopleInputError = document.getElementById("people-input-error");
+
+const tipAmount = document.getElementById("tip-amount");
+const totalAmount = document.getElementById("total-amount");
+
+const resetButton = document.querySelector(".reset-button");
+
+ 
+function updateResults() {
+ 
+    const billValue = getBillValue();
+    const tipPercentage = getTipPercentage();
+    const numberOfPeople = getNumberOfPeople();
+
+    if (!validateInputs(billValue, tipPercentage, numberOfPeople)) {
+        resetCalculator();
+        disableResetBtn()
+        return;
+    }
+
+    const tipPerPerson = calcTipPerPerson(
+        billValue,
+        numberOfPeople,
+        tipPercentage
+    );
+
+    const totalPerPerson = calcTotalPerPerson(
+        billValue,
+        numberOfPeople,
+        tipPercentage
+    );
+
+    updateUI(tipPerPerson.toFixed(2), totalPerPerson.toFixed(2));
+    enableResetBtn();
+}
+ 
+
+formControlInputs.forEach(input => {
+
+    input.addEventListener("input", (e) => {
+        if (e.target.valueAsNumber <= 0) {
+            input.closest(".form-control__input-wrapper").classList.add("form-control__input-wrapper--error");
+        } else {
+            input.closest(".form-control__input-wrapper").classList.remove("form-control__input-wrapper--error");
+        }
+
+        updateResults();
+    });
+});
+
+tipInputs.forEach(input => {
+    input.addEventListener("change", () => {
+        resetCustomInput();
+        updateResults();
+    });
+});
+
+["focus", "input"].forEach((eventName) => {
+    customInput.addEventListener(eventName, () => {
+        uncheckTipInputs();
+        updateResults();
+    });
+});
+
+peopleInput.addEventListener("input", (e) => {
+    if (e.target.valueAsNumber === 0) {
+        peopleInputError.hidden = false;
+    } else {
+        peopleInputError.hidden = true;
+    }
+
+    updateResults();
+});
+
+resetButton.addEventListener("click", () => {
+    resetCalculator();
+})
+
+function uncheckTipInputs() {
+    tipInputs.forEach(input => {
+        input.checked = false;
+    });
+}
+
+function resetCustomInput() {
+    customInput.value = "";
+}
+
+function getBillValue() {
+    return billInput.valueAsNumber;
+}
+
+function getNumberOfPeople() {
+    return peopleInput.valueAsNumber; 
+}
+
+
+function getTipPercentage() {
+    const checkedTipInput = document.querySelector(".tip-input:checked");
+    return Number((checkedTipInput) ? checkedTipInput.value : customInput?.valueAsNumber) / 100; 
+}
+
+function calcTipPerPerson(billValue, numberOfPeople, tipPercentage) {
+    return (billValue / numberOfPeople) * tipPercentage;
+}
+
+function calcTotalPerPerson(billValue, numberOfPeople, tipPercentage) {
+    return (billValue / numberOfPeople) * (1 + tipPercentage);
+}
+
+function updateUI(tipPerPerson, totalPerPerson) {
+    tipAmount.textContent = `$${tipPerPerson}`;
+    totalAmount.textContent = `$${totalPerPerson}`;
+}
+
+function enableReset() {
+    
+}
+
+function validateInputs(billValue, tipPercentage, numberOfPeople) {
+    const isBillValid = isValidBill(billValue);
+    const isTipValid = isValidTip(tipPercentage);
+    const isPeopleValid = isValidPeople(numberOfPeople);
+
+    return isBillValid && isTipValid && isPeopleValid;
+}
+
+
+function isValidBill(billValue) {
+    return billValue > 0 && Number.isFinite(billValue);
+}
+
+
+function isValidTip(tipPercentage) {
+    return (
+        tipPercentage >= 0 &&
+        !Number.isNaN(tipPercentage) &&
+        typeof tipPercentage === "number"
+    ); 
+}
+
+
+function isValidPeople(numberOfPeople) {
+    return numberOfPeople > 0 && Number.isFinite(numberOfPeople);
+}
+
+function resetCalculator() {
+    tipAmount.textContent = "$0.00";
+    totalAmount.textContent = "$0.00";
+}
+
+function enableResetBtn() {
+    resetButton.disabled = false;          
+    resetButton.classList.add("reset-button--enabled");
+    resetButton.classList.remove("reset-button--disabled");
+}
+
+function disableResetBtn() {
+    resetButton.disabled = true;          
+    resetButton.classList.remove("reset-button--enabled");
+    resetButton.classList.add("reset-button--disabled");
+}
+
 
 
 ==========================================
@@ -482,9 +678,15 @@ body {
   padding: var(--spacing-100) var(--spacing-400);
   border-radius: 5px;
 }
-.results-section .reset-button:active {
+.results-section .reset-button--enabled:active {
   background: var(--color-green-200);
   color: var(--color-green-900);
+}
+.results-section .reset-button--enabled:hover {
+  cursor: pointer;
+}
+.results-section .reset-button--disabled:hover {
+  cursor: not-allowed;
 }
 @media (min-width: 48rem) {
   .results-section {
@@ -515,6 +717,18 @@ body {
   flex-direction: column;
   gap: var(--spacing-100);
 }
+.form-control__label-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.form-control .people-input-error {
+  font-family: "Space Mono", monospace;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  color: var(--color-orange-400);
+}
 .form-control__label {
   font-family: "Space Mono", monospace;
   font-size: 16px;
@@ -527,8 +741,16 @@ body {
   flex-direction: row;
   align-items: center;
   background: var(--color-grey-50);
-  border-radius: 5px;
   position: relative;
+  border-radius: 5px;
+  outline: 2px solid transparent;
+  border: none;
+}
+.form-control__input-wrapper:focus-within {
+  outline-color: var(--color-green-400);
+}
+.form-control__input-wrapper.form-control__input-wrapper--error {
+  outline-color: var(--color-orange-400);
 }
 .form-control__icon {
   width: 13px;
@@ -558,16 +780,13 @@ body {
   color: var(--color-green-900);
   text-align: right;
   background: transparent;
-  border: 2px solid transparent;
+  border: none;
+}
+.form-control__input:focus-visible {
+  outline: none;
 }
 .form-control__input:hover {
   cursor: text;
-}
-.form-control__input:focus {
-  border: 2px solid var(--color-green-400);
-}
-.form-control__input--error {
-  border: 2px solid var(--color-orange-400);
 }
 
 .tip-calculator {
