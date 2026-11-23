@@ -21,7 +21,7 @@ function updateResults() {
     console.log(`custom input: ${customInput?.valueAsNumber}`);
     console.log(`num of people: ${peopleInput?.valueAsNumber}`);
 
-    const billValue = getBillInput();
+    const billValue = getBillValue();
     const tipPercentage = getTipPercentage(checkedTipInput, customInput);
     const numberOfPeople = getNumberOfPeople();
 
@@ -81,8 +81,13 @@ function resetCustomInput() {
     customInput.value = "";
 }
 
-function getBillInput() {
-
+function getBillValue() {
+    const billValue = billInput?.valueAsNumber;
+    
+    if (billValue > 0 && !Number.isNaN(billValue) && typeof billValue === "number") 
+        return billValue;
+        
+    return undefined;
 }
 
 function getNumberOfPeople() {
@@ -118,5 +123,5 @@ function updateUI() {
 }
 
 function enableReset() {
-
+    
 }
