@@ -25,6 +25,7 @@ function updateResults() {
     const tipPercentage = getTipPercentage(checkedTipInput, customInput);
     const numberOfPeople = getNumberOfPeople();
 
+
     // if (!validateInputs()) {
     //     return;
     // }
@@ -36,6 +37,7 @@ function updateResults() {
 }
 
 formControlInputs.forEach(input => {
+
     input.addEventListener("input", (e) => {
         if (e.target.valueAsNumber <= 0) {
             input.closest(".form-control__input-wrapper").classList.add("form-control__input-wrapper--error");
@@ -91,7 +93,12 @@ function getBillValue() {
 }
 
 function getNumberOfPeople() {
-
+    const numOfPeople = peopleInput?.valueAsNumber;
+    
+    if (numOfPeople > 0 && Number.isFinite(numOfPeople)) 
+        return numOfPeople;
+        
+    return undefined;
 }
 
 // — فحص المدخلات.
@@ -119,7 +126,7 @@ function calcTotalPerPerson(billInput, numberOfPeople) {
 }
 
 function updateUI() {
-
+    
 }
 
 function enableReset() {
