@@ -51,9 +51,9 @@ formControlInputs.forEach(input => {
 
         input.setAttribute("aria-invalid", String(!isValid));
 
-        if (input === peopleInput) {
+        if (input === peopleInput) 
             peopleInputError.hidden = input.valueAsNumber !== 0;
-        }
+        
 
         updateResults();
     });
