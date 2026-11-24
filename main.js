@@ -37,20 +37,27 @@ function updateResults() {
         tipPercentage
     );
 
-    updateUI(tipPerPerson.toFixed(2), totalPerPerson.toFixed(2));
-    enableResetBtn();
+    updateResultsValue(tipPerPerson.toFixed(2), totalPerPerson.toFixed(2));
+
 }
  
-
 formControlInputs.forEach(input => {
 
-    input.addEventListener("input", (e) => {
-        const isValid = Number.isFinite(input.valueAsNumber) && input.valueAsNumber > 0;
-        input.closest(".form-control__input-wrapper").classList.toggle("form-control__input-wrapper--error", !isValid);
+    input.addEventListener("input", () => {
+        const isValid = isValidBillOrNumOfPeople(input.valueAsNumber);
+
+        input.closest(".form-control__input-wrapper")
+            .classList.toggle("form-control__input-wrapper--error", !isValid);
+
         input.setAttribute("aria-invalid", String(!isValid));
+
+        if (input === peopleInput) {
+            peopleInputError.hidden = input.valueAsNumber !== 0;
+        }
 
         updateResults();
     });
+
 });
 
 tipInputs.forEach(input => {
@@ -60,6 +67,7 @@ tipInputs.forEach(input => {
     });
 });
 
+
 ["focus", "input"].forEach((eventName) => {
     customInput.addEventListener(eventName, () => {
         uncheckTipInputs();
@@ -67,16 +75,7 @@ tipInputs.forEach(input => {
     });
 });
 
-peopleInput.addEventListener("input", (e) => {
-    if (e.target.valueAsNumber === 0) {
-        peopleInputError.hidden = false;
-    } else {
-        peopleInputError.hidden = true;
-    }
-
-    updateResults();
-});
-
+ 
 resetButton.addEventListener("click", () => {
     resetCalculator();
 })
@@ -98,11 +97,10 @@ function getBillValue() {
 function getNumberOfPeople() {
     return peopleInput.valueAsNumber; 
 }
-
-
+ 
 function getTipPercentage() {
     const checkedTipInput = document.querySelector(".tip-input:checked");
-    return Number((checkedTipInput) ? checkedTipInput.value : customInput?.valueAsNumber) / 100; 
+    return Number((checkedTipInput) ? checkedTipInput.value  : customInput?.valueAsNumber) / 100; 
 }
 
 function calcTipPerPerson(billValue, numberOfPeople, tipPercentage) {
@@ -113,39 +111,38 @@ function calcTotalPerPerson(billValue, numberOfPeople, tipPercentage) {
     return (billValue / numberOfPeople) * (1 + tipPercentage);
 }
 
-function updateUI(tipPerPerson, totalPerPerson) {   
+function updateResultsValue(tipPerPerson, totalPerPerson) {   
     tipAmount.textContent = `$${tipPerPerson}`;
     totalAmount.textContent = `$${totalPerPerson}`;
 }
  
 function validateInputs(billValue, tipPercentage, numberOfPeople) {
-    const isBillValid = isValidBill(billValue);
+    const isBillValid = isValidBillOrNumOfPeople(billValue);
     const isTipValid = isValidTip(tipPercentage);
-    const isPeopleValid = isValidPeople(numberOfPeople);
+    const isPeopleValid = isValidBillOrNumOfPeople(numberOfPeople);
 
     return isBillValid && isTipValid && isPeopleValid;
-}
-
-
-function isValidBill(billValue) {
-    return billValue > 0 && Number.isFinite(billValue);
-}
-
+} 
 
 function isValidTip(tipPercentage) {
     return (
         tipPercentage >= 0 &&
         !Number.isNaN(tipPercentage) &&
-        typeof tipPercentage === "number"
+        typeof tipPercentage === "number" &&
+        tipPercentage <= 1
     ); 
 }
-
-
-function isValidPeople(numberOfPeople) {
+ 
+function isValidBillOrNumOfPeople(numberOfPeople) {
     return numberOfPeople > 0 && Number.isFinite(numberOfPeople);
 }
 
 function resetCalculator() {
+    enableResetBtn();
+    resetResultValues();
+}
+
+function resetResultValues() {
     tipAmount.textContent = "$0.00";
     totalAmount.textContent = "$0.00";
 }
