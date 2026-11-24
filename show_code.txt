@@ -22,7 +22,7 @@ FILE: ./index.html
 <body>
 
   <main>
-
+    <h1 hidden>Tip Calculator</h1>
     <img 
       src="./images/logo.svg" 
       alt="Splitter" 
@@ -58,6 +58,7 @@ FILE: ./index.html
               step="any"
               class="form-control__input"  
               inputmode="decimal"
+              aria-invalid="false"
             >
 
           </div>
@@ -297,8 +298,10 @@ formControlInputs.forEach(input => {
 
     input.addEventListener("input", (e) => {
         if (e.target.valueAsNumber <= 0) {
+            input.setAttribute("aria-invalid", "true");
             input.closest(".form-control__input-wrapper").classList.add("form-control__input-wrapper--error");
         } else {
+            input.setAttribute("aria-invalid", "false");
             input.closest(".form-control__input-wrapper").classList.remove("form-control__input-wrapper--error");
         }
 
@@ -366,15 +369,11 @@ function calcTotalPerPerson(billValue, numberOfPeople, tipPercentage) {
     return (billValue / numberOfPeople) * (1 + tipPercentage);
 }
 
-function updateUI(tipPerPerson, totalPerPerson) {
+function updateUI(tipPerPerson, totalPerPerson) {   
     tipAmount.textContent = `$${tipPerPerson}`;
     totalAmount.textContent = `$${totalPerPerson}`;
 }
-
-function enableReset() {
-    
-}
-
+ 
 function validateInputs(billValue, tipPercentage, numberOfPeople) {
     const isBillValid = isValidBill(billValue);
     const isTipValid = isValidTip(tipPercentage);
@@ -547,7 +546,7 @@ body {
   color: var(--color-grey-550);
 }
 .tip-section .tip-options .custom-input:focus {
-  border: 2px solid var(--color-grey-900);
+  border: 2px solid var(--color-green-900);
   outline-offset: 2px;
 }
 .tip-section .tip-options .custom-input {
@@ -680,6 +679,10 @@ body {
 }
 .results-section .reset-button--enabled:active {
   background: var(--color-green-200);
+  color: var(--color-green-900);
+}
+.results-section .reset-button--enabled {
+  background: var(--color-green-400);
   color: var(--color-green-900);
 }
 .results-section .reset-button--enabled:hover {

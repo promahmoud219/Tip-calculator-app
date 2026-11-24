@@ -45,11 +45,9 @@ function updateResults() {
 formControlInputs.forEach(input => {
 
     input.addEventListener("input", (e) => {
-        if (e.target.valueAsNumber <= 0) {
-            input.closest(".form-control__input-wrapper").classList.add("form-control__input-wrapper--error");
-        } else {
-            input.closest(".form-control__input-wrapper").classList.remove("form-control__input-wrapper--error");
-        }
+        const isValid = Number.isFinite(input.valueAsNumber) && input.valueAsNumber > 0;
+        input.closest(".form-control__input-wrapper").classList.toggle("form-control__input-wrapper--error", !isValid);
+        input.setAttribute("aria-invalid", String(!isValid));
 
         updateResults();
     });
