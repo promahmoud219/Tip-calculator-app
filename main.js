@@ -1,3 +1,5 @@
+const calculatorForm = document.querySelector(".tip-calculator");
+
 const billInput = document.getElementById("bill-input");
 const formControlInputs = document.querySelectorAll(".form-control__input");
 
@@ -38,7 +40,7 @@ function updateResults() {
     );
 
     updateResultsValue(tipPerPerson.toFixed(2), totalPerPerson.toFixed(2));
-
+    enableResetBtn();
 }
  
 formControlInputs.forEach(input => {
@@ -49,13 +51,17 @@ formControlInputs.forEach(input => {
         input.closest(".form-control__input-wrapper")
             .classList.toggle("form-control__input-wrapper--error", !isValid);
 
-        input.setAttribute("aria-invalid", String(!isValid));
+        if (input.dataset.touched === "true") 
+            input.setAttribute("aria-invalid", String(!isValid));
 
         if (input === peopleInput) 
             peopleInputError.hidden = input.valueAsNumber !== 0;
-        
 
         updateResults();
+    });
+
+    input.addEventListener("blur", () => {
+        input.dataset.touched = "true";
     });
 
 });
@@ -75,10 +81,11 @@ tipInputs.forEach(input => {
     });
 });
 
- 
-resetButton.addEventListener("click", () => {
-    resetCalculator();
-})
+
+calculatorForm.addEventListener("reset", () => {
+    resetResultValues();
+    disableResetBtn();
+});
 
 function uncheckTipInputs() {
     tipInputs.forEach(input => {
