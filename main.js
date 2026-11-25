@@ -1,6 +1,11 @@
+const MAX_BILL_VALUE = 10000000;
+
 const calculatorForm = document.querySelector(".tip-calculator");
 
 const billInput = document.getElementById("bill-input");
+
+billInput.dataset.previousValue = billInput.value;
+
 const formControlInputs = document.querySelectorAll(".form-control__input");
 
 const tipInputs = document.querySelectorAll(".tip-input");
@@ -23,7 +28,6 @@ function updateResults() {
 
     if (!validateInputs(billValue, tipPercentage, numberOfPeople)) {
         resetCalculator();
-        disableResetBtn()
         return;
     }
 
@@ -41,30 +45,47 @@ function updateResults() {
 
     updateResultsValue(tipPerPerson.toFixed(2), totalPerPerson.toFixed(2));
     enableResetBtn();
+    
 }
  
 formControlInputs.forEach(input => {
 
     input.addEventListener("input", () => {
-        const isValid = isValidBillOrNumOfPeople(input.valueAsNumber);
-
-        input.closest(".form-control__input-wrapper")
-            .classList.toggle("form-control__input-wrapper--error", !isValid);
-
-        if (input.dataset.touched === "true") 
-            input.setAttribute("aria-invalid", String(!isValid));
-
+        
+        if (input === billInput)
+            enforceBillInputLimit(input);
+        
+        let isValid;
+        
         if (input === peopleInput) 
-            peopleInputError.hidden = input.valueAsNumber !== 0;
+            isValid = isValidNumOfPeople(input.valueAsNumber); 
+        
+        else if (input === billInput) 
+            isValid = isValidBill(input.valueAsNumber); 
+        
+        input.closest(".form-control__input-wrapper")
+        .classList.toggle("form-control__input-wrapper--error", !isValid);
+        
+        input.setAttribute("aria-invalid", String(!isValid));
 
         updateResults();
     });
-
-    input.addEventListener("blur", () => {
-        input.dataset.touched = "true";
-    });
-
+    
 });
+
+peopleInput.addEventListener("input", (e) => {
+    if (e.target.valueAsNumber === 0)
+        peopleInputError.hidden = false;
+})
+
+function enforceBillInputLimit(input) {
+    const currentValue = input.valueAsNumber;
+
+    if (input.value === "" || currentValue <= MAX_BILL_VALUE) 
+        input.dataset.previousValue = input.value;
+    else 
+        input.value = input.dataset.previousValue;
+}
 
 tipInputs.forEach(input => {
     input.addEventListener("change", () => {
@@ -83,6 +104,7 @@ tipInputs.forEach(input => {
 
 
 calculatorForm.addEventListener("reset", () => {
+    billInput.dataset.previousValue = billInput.defaultValue;   
     resetResultValues();
     disableResetBtn();
 });
@@ -124,9 +146,9 @@ function updateResultsValue(tipPerPerson, totalPerPerson) {
 }
  
 function validateInputs(billValue, tipPercentage, numberOfPeople) {
-    const isBillValid = isValidBillOrNumOfPeople(billValue);
+    const isBillValid = isValidBill(billValue);
     const isTipValid = isValidTip(tipPercentage);
-    const isPeopleValid = isValidBillOrNumOfPeople(numberOfPeople);
+    const isPeopleValid = isValidNumOfPeople(numberOfPeople);
 
     return isBillValid && isTipValid && isPeopleValid;
 } 
@@ -140,12 +162,25 @@ function isValidTip(tipPercentage) {
     ); 
 }
  
-function isValidBillOrNumOfPeople(numberOfPeople) {
-    return numberOfPeople > 0 && Number.isFinite(numberOfPeople);
+function isValidNumOfPeople(value) {
+    return (
+        value > 0 &&
+        Number.isFinite(value)
+    );
+}
+ 
+
+
+function isValidBill(value) {
+    return (
+        value > 0 &&
+        Number.isFinite(value) &&
+        value <= MAX_BILL_VALUE
+    );
 }
 
 function resetCalculator() {
-    enableResetBtn();
+    disableResetBtn();
     resetResultValues();
 }
 

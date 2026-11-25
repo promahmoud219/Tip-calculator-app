@@ -26,6 +26,7 @@
             &-label{
                 display: flex;
                 flex-direction: column;
+                flex-shrink: 0;
             }
 
             span{
@@ -40,13 +41,16 @@
                     color: var(--color-grey-400); 
                 }
             }
+
+            &-value{
+                @include text-preset(2);
+                color: var(--color-green-400);
+                // min-width: 0;
+                // overflow-wrap: anywhere;
+
+            }
         }
 
-        .result-value{
-        
-            @include text-preset(2);
-            color: var(--color-green-400);
-        }
     }
 
     .reset-button{
