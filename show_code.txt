@@ -55,7 +55,9 @@ FILE: ./index.html
               placeholder="0" 
               name="bill"
               min="0"
+              max="10000000"
               step="any"
+              aria-invalid="false"
               class="form-control__input"  
               inputmode="decimal"
             >
@@ -167,10 +169,11 @@ FILE: ./index.html
               id="people-input"
               name="people" 
               min="1" 
-              max="100" 
+              max="10000" 
               step="1" 
               placeholder="0"
               class="form-control__input"
+              aria-invalid="false"
               aria-describedby="people-input-error"
             >
 
@@ -248,9 +251,14 @@ FILE: ./index.html
 ==========================================
 FILE: ./main.js
 ==========================================
+const MAX_BILL_VALUE = 10000000;
+const MAX_PEOPLE_VALUE = 10000;
+
 const calculatorForm = document.querySelector(".tip-calculator");
 
 const billInput = document.getElementById("bill-input");
+
+
 const formControlInputs = document.querySelectorAll(".form-control__input");
 
 const tipInputs = document.querySelectorAll(".tip-input");
@@ -264,16 +272,17 @@ const totalAmount = document.getElementById("total-amount");
 
 const resetButton = document.querySelector(".reset-button");
 
- 
+billInput.dataset.previousValue = billInput.value;
+peopleInput.dataset.previousValue = peopleInput.value;
+
 function updateResults() {
- 
+    
     const billValue = getBillValue();
     const tipPercentage = getTipPercentage();
     const numberOfPeople = getNumberOfPeople();
 
     if (!validateInputs(billValue, tipPercentage, numberOfPeople)) {
         resetCalculator();
-        disableResetBtn()
         return;
     }
 
@@ -289,32 +298,53 @@ function updateResults() {
         tipPercentage
     );
 
-    updateResultsValue(tipPerPerson.toFixed(2), totalPerPerson.toFixed(2));
+    updateResultsValue(
+        tipPerPerson.toFixed(2),
+        totalPerPerson.toFixed(2)
+    );
+
     enableResetBtn();
 }
  
 formControlInputs.forEach(input => {
 
     input.addEventListener("input", () => {
-        const isValid = isValidBillOrNumOfPeople(input.valueAsNumber);
-
-        input.closest(".form-control__input-wrapper")
-            .classList.toggle("form-control__input-wrapper--error", !isValid);
-
-        if (input.dataset.touched === "true") 
-            input.setAttribute("aria-invalid", String(!isValid));
-
+        
+        if (input === billInput)
+            enforceInputLimit(input, MAX_BILL_VALUE);
+        else if (input === peopleInput)
+            enforceInputLimit(input, MAX_PEOPLE_VALUE);
+        
+        let isValid;
+        
         if (input === peopleInput) 
-            peopleInputError.hidden = input.valueAsNumber !== 0;
+            isValid = isValidNumOfPeople(input.valueAsNumber); 
+        
+        else if (input === billInput) 
+            isValid = isValidBill(input.valueAsNumber); 
+        
+        input.closest(".form-control__input-wrapper")
+        .classList.toggle("form-control__input-wrapper--error", !isValid);
+        
+        input.setAttribute("aria-invalid", String(!isValid));
 
         updateResults();
     });
-
-    input.addEventListener("blur", () => {
-        input.dataset.touched = "true";
-    });
-
+    
 });
+
+peopleInput.addEventListener("input", (e) => {
+    peopleInputError.hidden = e.target.valueAsNumber !== 0;
+})
+
+function enforceInputLimit(input, maxValue) {
+    const currentValue = input.valueAsNumber;
+
+    if (input.value === "" || currentValue <= maxValue) 
+        input.dataset.previousValue = input.value;
+    else 
+        input.value = input.dataset.previousValue;
+}
 
 tipInputs.forEach(input => {
     input.addEventListener("change", () => {
@@ -333,6 +363,9 @@ tipInputs.forEach(input => {
 
 
 calculatorForm.addEventListener("reset", () => {
+    billInput.dataset.previousValue = billInput.defaultValue;   
+    peopleInput.dataset.previousValue = peopleInput.defaultValue;
+
     resetResultValues();
     disableResetBtn();
 });
@@ -374,9 +407,9 @@ function updateResultsValue(tipPerPerson, totalPerPerson) {
 }
  
 function validateInputs(billValue, tipPercentage, numberOfPeople) {
-    const isBillValid = isValidBillOrNumOfPeople(billValue);
+    const isBillValid = isValidBill(billValue);
     const isTipValid = isValidTip(tipPercentage);
-    const isPeopleValid = isValidBillOrNumOfPeople(numberOfPeople);
+    const isPeopleValid = isValidNumOfPeople(numberOfPeople);
 
     return isBillValid && isTipValid && isPeopleValid;
 } 
@@ -390,12 +423,26 @@ function isValidTip(tipPercentage) {
     ); 
 }
  
-function isValidBillOrNumOfPeople(numberOfPeople) {
-    return numberOfPeople > 0 && Number.isFinite(numberOfPeople);
+function isValidNumOfPeople(value) {
+    return (
+        Number.isInteger(value) &&
+        value >= 1 &&
+        Number.isFinite(value)
+    );
+}
+ 
+
+
+function isValidBill(value) {
+    return (
+        value > 0 &&
+        Number.isFinite(value) &&
+        value <= MAX_BILL_VALUE
+    );
 }
 
 function resetCalculator() {
-    enableResetBtn();
+    disableResetBtn();
     resetResultValues();
 }
 
@@ -596,6 +643,10 @@ body {
   outline: 2px solid var(--color-green-400);
 }
 .tip-option:has(input:checked) {
+  background: var(--color-green-400);
+  color: var(--color-green-900);
+}
+.tip-option:not(:has(input:checked)):is(:hover, :active) {
   background: var(--color-green-200);
   color: var(--color-green-900);
 }
@@ -643,6 +694,7 @@ body {
 .results-section .results-container .result-label {
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
 }
 .results-section .results-container .result span:first-child {
   font-family: "Space Mono", monospace;
@@ -675,16 +727,14 @@ body {
   padding: var(--spacing-100) var(--spacing-400);
   border-radius: 5px;
 }
-.results-section .reset-button--enabled:active {
-  background: var(--color-green-200);
-  color: var(--color-green-900);
-}
 .results-section .reset-button--enabled {
   background: var(--color-green-400);
   color: var(--color-green-900);
 }
-.results-section .reset-button--enabled:hover {
+.results-section .reset-button--enabled:hover, .results-section .reset-button--enabled:active {
   cursor: pointer;
+  background: var(--color-green-200);
+  color: var(--color-green-900);
 }
 .results-section .reset-button--disabled:hover {
   cursor: not-allowed;
@@ -840,5 +890,17 @@ main {
 .site-logo {
   width: 86.66px;
   height: 53.14px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }/*# sourceMappingURL=main.css.map */
 

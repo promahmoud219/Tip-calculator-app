@@ -1,10 +1,10 @@
 const MAX_BILL_VALUE = 10000000;
+const MAX_PEOPLE_VALUE = 10000;
 
 const calculatorForm = document.querySelector(".tip-calculator");
 
 const billInput = document.getElementById("bill-input");
 
-billInput.dataset.previousValue = billInput.value;
 
 const formControlInputs = document.querySelectorAll(".form-control__input");
 
@@ -19,9 +19,11 @@ const totalAmount = document.getElementById("total-amount");
 
 const resetButton = document.querySelector(".reset-button");
 
- 
+billInput.dataset.previousValue = billInput.value;
+peopleInput.dataset.previousValue = peopleInput.value;
+
 function updateResults() {
- 
+    
     const billValue = getBillValue();
     const tipPercentage = getTipPercentage();
     const numberOfPeople = getNumberOfPeople();
@@ -43,9 +45,12 @@ function updateResults() {
         tipPercentage
     );
 
-    updateResultsValue(tipPerPerson.toFixed(2), totalPerPerson.toFixed(2));
+    updateResultsValue(
+        tipPerPerson.toFixed(2),
+        totalPerPerson.toFixed(2)
+    );
+
     enableResetBtn();
-    
 }
  
 formControlInputs.forEach(input => {
@@ -53,7 +58,9 @@ formControlInputs.forEach(input => {
     input.addEventListener("input", () => {
         
         if (input === billInput)
-            enforceBillInputLimit(input);
+            enforceInputLimit(input, MAX_BILL_VALUE);
+        else if (input === peopleInput)
+            enforceInputLimit(input, MAX_PEOPLE_VALUE);
         
         let isValid;
         
@@ -64,7 +71,7 @@ formControlInputs.forEach(input => {
             isValid = isValidBill(input.valueAsNumber); 
         
         input.closest(".form-control__input-wrapper")
-        .classList.toggle("form-control__input-wrapper--error", !isValid);
+            .classList.toggle("form-control__input-wrapper--error", !isValid);
         
         input.setAttribute("aria-invalid", String(!isValid));
 
@@ -74,14 +81,13 @@ formControlInputs.forEach(input => {
 });
 
 peopleInput.addEventListener("input", (e) => {
-    if (e.target.valueAsNumber === 0)
-        peopleInputError.hidden = false;
+    peopleInputError.hidden = e.target.valueAsNumber !== 0;
 })
 
-function enforceBillInputLimit(input) {
+function enforceInputLimit(input, maxValue) {
     const currentValue = input.valueAsNumber;
 
-    if (input.value === "" || currentValue <= MAX_BILL_VALUE) 
+    if (input.value === "" || currentValue <= maxValue) 
         input.dataset.previousValue = input.value;
     else 
         input.value = input.dataset.previousValue;
@@ -105,6 +111,8 @@ tipInputs.forEach(input => {
 
 calculatorForm.addEventListener("reset", () => {
     billInput.dataset.previousValue = billInput.defaultValue;   
+    peopleInput.dataset.previousValue = peopleInput.defaultValue;
+
     resetResultValues();
     disableResetBtn();
 });
@@ -155,17 +163,17 @@ function validateInputs(billValue, tipPercentage, numberOfPeople) {
 
 function isValidTip(tipPercentage) {
     return (
-        tipPercentage >= 0 &&
-        !Number.isNaN(tipPercentage) &&
-        typeof tipPercentage === "number" &&
-        tipPercentage <= 1
+        Number.isFinite(tipPercentage) &&
+        tipPercentage >= 0 && tipPercentage <= 1
     ); 
 }
  
 function isValidNumOfPeople(value) {
     return (
-        value > 0 &&
-        Number.isFinite(value)
+        Number.isInteger(value) &&
+        Number.isFinite(value) && 
+        value >= 1 &&
+        value <= MAX_PEOPLE_VALUE
     );
 }
  

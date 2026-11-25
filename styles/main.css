@@ -173,6 +173,10 @@ body {
   outline: 2px solid var(--color-green-400);
 }
 .tip-option:has(input:checked) {
+  background: var(--color-green-400);
+  color: var(--color-green-900);
+}
+.tip-option:not(:has(input:checked)):is(:hover, :active) {
   background: var(--color-green-200);
   color: var(--color-green-900);
 }
@@ -253,16 +257,14 @@ body {
   padding: var(--spacing-100) var(--spacing-400);
   border-radius: 5px;
 }
-.results-section .reset-button--enabled:active {
-  background: var(--color-green-200);
-  color: var(--color-green-900);
-}
 .results-section .reset-button--enabled {
   background: var(--color-green-400);
   color: var(--color-green-900);
 }
-.results-section .reset-button--enabled:hover {
+.results-section .reset-button--enabled:hover, .results-section .reset-button--enabled:active {
   cursor: pointer;
+  background: var(--color-green-200);
+  color: var(--color-green-900);
 }
 .results-section .reset-button--disabled:hover {
   cursor: not-allowed;

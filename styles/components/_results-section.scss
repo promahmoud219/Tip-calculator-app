@@ -62,18 +62,16 @@
         padding: var(--spacing-100) var(--spacing-400);
         border-radius: 5px;
         
-        &--enabled:active{
-            background: var(--color-green-200);
-            color: var(--color-green-900)
-        }
-        
         &--enabled{
             background: var(--color-green-400);
             color: var(--color-green-900);
         }
-
-        &--enabled:hover{
+        
+        &--enabled:hover, 
+        &--enabled:active{  
             cursor: pointer;
+            background: var(--color-green-200);
+            color: var(--color-green-900);
         }
 
         &--disabled:hover{

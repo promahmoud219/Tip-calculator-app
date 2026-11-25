@@ -36,6 +36,11 @@
     }
 
     &:has(input:checked){
+        background: var(--color-green-400);
+        color: var(--color-green-900);
+    }
+
+    &:not(:has(input:checked)):is(:hover, :active) {
         background: var(--color-green-200);
         color: var(--color-green-900);
     } 
