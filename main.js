@@ -134,10 +134,15 @@ function getBillValue() {
 function getNumberOfPeople() {
     return peopleInput.valueAsNumber; 
 }
- 
+
 function getTipPercentage() {
     const checkedTipInput = document.querySelector(".tip-input:checked");
-    return Number((checkedTipInput) ? checkedTipInput.value  : customInput?.valueAsNumber) / 100; 
+
+    const selectedTip = checkedTipInput
+        ? Number(checkedTipInput.value)
+        : customInput.valueAsNumber;
+
+    return selectedTip / 100;
 }
 
 function calcTipPerPerson(billValue, numberOfPeople, tipPercentage) {
@@ -171,7 +176,6 @@ function isValidTip(tipPercentage) {
 function isValidNumOfPeople(value) {
     return (
         Number.isInteger(value) &&
-        Number.isFinite(value) && 
         value >= 1 &&
         value <= MAX_PEOPLE_VALUE
     );
