@@ -12,11 +12,11 @@ main {
     gap: var(--spacing-500);
     
     @media (min-width: $breakpoint-tablet) {
-        // padding: 80px;
+        padding: 80px;
     }
     
-    @media (min-width: $breakpoint-tablet) {
-        // gap: 88px;
+    @media (min-width: $breakpoint-desktop) {
+        gap: 88px;
     }
 
     // position: relative;

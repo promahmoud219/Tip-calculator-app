@@ -405,6 +405,17 @@ main {
   align-items: center;
   gap: var(--spacing-500);
 }
+@media (min-width: 48rem) {
+  main {
+    padding: 80px;
+  }
+}
+@media (min-width: 90rem) {
+  main {
+    gap: 88px;
+  }
+}
+
 .site-logo {
   width: 86.66px;
   height: 53.14px;
