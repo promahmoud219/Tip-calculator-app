@@ -324,7 +324,7 @@ formControlInputs.forEach(input => {
             isValid = isValidBill(input.valueAsNumber); 
         
         input.closest(".form-control__input-wrapper")
-        .classList.toggle("form-control__input-wrapper--error", !isValid);
+            .classList.toggle("form-control__input-wrapper--error", !isValid);
         
         input.setAttribute("aria-invalid", String(!isValid));
 
@@ -387,10 +387,15 @@ function getBillValue() {
 function getNumberOfPeople() {
     return peopleInput.valueAsNumber; 
 }
- 
+
 function getTipPercentage() {
     const checkedTipInput = document.querySelector(".tip-input:checked");
-    return Number((checkedTipInput) ? checkedTipInput.value  : customInput?.valueAsNumber) / 100; 
+
+    const selectedTip = checkedTipInput
+        ? Number(checkedTipInput.value)
+        : customInput.valueAsNumber;
+
+    return selectedTip / 100;
 }
 
 function calcTipPerPerson(billValue, numberOfPeople, tipPercentage) {
@@ -416,10 +421,8 @@ function validateInputs(billValue, tipPercentage, numberOfPeople) {
 
 function isValidTip(tipPercentage) {
     return (
-        tipPercentage >= 0 &&
-        !Number.isNaN(tipPercentage) &&
-        typeof tipPercentage === "number" &&
-        tipPercentage <= 1
+        Number.isFinite(tipPercentage) &&
+        tipPercentage >= 0 && tipPercentage <= 1
     ); 
 }
  
@@ -427,7 +430,7 @@ function isValidNumOfPeople(value) {
     return (
         Number.isInteger(value) &&
         value >= 1 &&
-        Number.isFinite(value)
+        value <= MAX_PEOPLE_VALUE
     );
 }
  
